@@ -1,0 +1,27 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        DashBoard
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body">
+        <form [formGroup]="userForm">
+                <div class="form-group">
+                        <input class="form-control" formControlName='email' placeholder="E-mail" name="email" type="email" autofocus>
+                        <div style="font-size: 10px; color: red;" *ngIf="userForm.controls['email'].touched && !userForm.controls['email'].valid">                                                                          
+                          <span *ngIf="userForm.controls['email'].hasError('required') ">  
+                            Please enter email id.
+                          </span>  
+                               
+                         <span *ngIf="userForm.controls['email'].hasError('email') ">  
+                            Invalid email id.
+                          </span>                                                                                
+                      </div>
+                    </div> 
+                <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
+                            Login 
+                            <i class="fa fa-key"></i>
+                </button>
+        </form>
+    </div>
+    <!-- /.panel-body -->
+</div>

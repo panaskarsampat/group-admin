@@ -1,0 +1,135 @@
+<style>
+    h2 {
+text-align: center;
+}
+
+table caption {
+    padding: .5em 0;
+}
+
+@media screen and (max-width: 767px) {
+    table caption {
+        border-bottom: 1px solid #ddd;
+    }
+}
+
+.p {
+    text-align: center;
+    padding-top: 140px;
+    font-size: 14px;
+}
+</style>
+<div class="panel panel-primary">
+<div class="panel-heading">
+    User Master
+</div>
+<!-- /.panel-heading -->
+<div class="panel-body alert-info">
+    <!-- <form [formGroup]="userForm">
+            <div class="form-group">
+                    <input class="form-control" formControlName='email' placeholder="E-mail" name="email" type="email" autofocus>
+                    <div style="font-size: 10px; color: red;" *ngIf="userForm.controls['email'].touched && !userForm.controls['email'].valid">
+                      <span *ngIf="userForm.controls['email'].hasError('required') ">
+                        Please enter email id.
+                      </span>
+
+                     <span *ngIf="userForm.controls['email'].hasError('email') ">
+                        Invalid email id.
+                      </span>
+                  </div>
+                </div>
+            <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
+                        Login
+                        <i class="fa fa-key"></i>
+            </button>
+    </form> -->
+    <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="dataTables_length" id="dataTables-example_length">
+                        <p>
+                            <button type="button" class="btn btn-outline btn-primary" [routerLink]="['../create']">Create User
+                                <i class="fa fa-user"></i>
+                            </button>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div id="dataTables-example_filter" class="dataTables_filter">
+                            <div class="input-group custom-search-form pull-right">
+
+                                    <form [formGroup]="userForm">
+                                        <input type="text" formControlName='searchtext' style="width: 205px;" class="form-control" placeholder="Search...">
+                                        <span class="input-group-btn">
+                                            <button [disabled]="userForm.invalid" class="btn btn-default" type="button" (click)="searchText()">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                            <button class="btn btn-default" type="button" (click)="loadList()">
+                                                    <i class="fa fa-refresh"></i>
+                                            </button>
+                                        </span>
+                                        <div style="font-size: 10px; color: red;" *ngIf="userForm.controls['searchtext'].touched && !userForm.controls['searchtext'].valid">
+                                            <span *ngIf="userForm.controls['searchtext'].hasError('required') ">
+                                                Please enter search text.
+                                            </span>
+
+                                            <span *ngIf="userForm.controls['searchtext'].hasError('minlength') ">
+                                                Search text min length is 4.
+                                            </span>
+                                            <span *ngIf="userForm.controls['searchtext'].hasError('maxlength') ">
+                                                Search text max length is 250.
+                                            </span>
+                                        </div>
+                                    </form>
+
+                                </div>
+                    </div>
+                </div>
+            </div>
+        <div class="row">
+
+            <div class="col-xs-12">
+                <div class="table-responsive">
+
+                    <table class="table table-bordered table-hover">
+
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th>Email</th>
+                            <th>Full Name</th>
+                            <th>User Name</th>
+                            <th>Phone Number</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let user of userlist">
+                                <td scope="row">
+                                        <button [routerLink]="['../edit',user.UserId]" type="button" class="btn btn-outline btn-info">Edit</button>
+                                    </td>
+                                    <td>
+                                        {{user.UserEmail}}
+                                    </td>
+                                    <td>
+                                        {{user.UserFullName}}
+                                    </td>
+                                    <td>
+                                        {{user. UserName}}
+                                    </td>
+                                    <td>
+                                        {{user.PhoneNumber}}
+                                    </td>
+                          </tr>
+                        </tbody>
+                        <!-- <tfoot>
+                          <tr>
+                            <td colspan="5" class="text-center"></td>
+                          </tr>
+                        </tfoot> -->
+                    </table>
+                </div><!--end of .table-responsive-->
+            </div>
+        </div>
+
+<!-- /.panel-body -->
+</div>
