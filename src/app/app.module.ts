@@ -42,6 +42,7 @@ import { CompanyComponent } from './company/company.component';
 import { JobsComponent } from './jobs/jobs.component';
 import { PositionComponent } from './position/position.component';
 import { WorkComponent } from './work/work.component';
+import { UpperCaseDirective } from './common-directives/upper-case.directive';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,7 @@ import { WorkComponent } from './work/work.component';
     LeftNavigationsComponent,
     ChildComponentsComponent,
     DashboardComponent,  
-    UserEditComponent, UserCreateComponent, UserListComponent, CountryComponent, CountryListComponent, CountryEditComponent, CountryCreateComponent, StateComponent, CityComponent, CompanyComponent, JobsComponent, PositionComponent, WorkComponent
+    UserEditComponent, UserCreateComponent, UserListComponent, CountryComponent, CountryListComponent, CountryEditComponent, CountryCreateComponent, StateComponent, CityComponent, CompanyComponent, JobsComponent, PositionComponent, WorkComponent, UpperCaseDirective
   ],
   imports: [
     BrowserModule,

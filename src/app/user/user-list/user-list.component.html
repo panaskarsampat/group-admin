@@ -105,7 +105,9 @@ table caption {
                         <tbody>
                           <tr *ngFor="let user of userlist">
                                 <td scope="row">
-                                        <button [routerLink]="['../edit',user.UserId]" type="button" class="btn btn-outline btn-info">Edit</button>
+                                        <button [routerLink]="['../edit',user.UserId]" type="button" class="btn btn-outline btn-info">Edit
+                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        </button>
                                     </td>
                                     <td>
                                         {{user.UserEmail}}
