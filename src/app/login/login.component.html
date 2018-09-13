@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+          <div class="login-panel panel panel-primary">
+              <div class="panel-heading">
+                  <h3 class="panel-title">Please Sign In</h3>
+              </div>
+              <div class="panel-body">
+                  <form [formGroup]="form" (ngSubmit)="getLogin()">
+                      <fieldset>
+                          <div class="alert alert-info" *ngIf="isInfo">
+                            {{ infoMessage }}
+                          </div>
+                          <div class="form-group">
+                              <input class="form-control" formControlName='email' placeholder="E-mail" name="email" type="email" autofocus>
+                              <div style="font-size: 10px; color: red;" *ngIf="form.controls['email'].touched && !form.controls['email'].valid">                                                                          
+                                <span *ngIf="form.controls['email'].hasError('required') ">  
+                                  Please enter email id.
+                                </span>  
+                                     
+                               <span *ngIf="form.controls['email'].hasError('email') ">  
+                                  Invalid email id.
+                                </span>                                                                                
+                            </div>
+                          </div>
+                          <div class="form-group">
+                              <input class="form-control" formControlName='password' placeholder="Password" name="password" type="password" value="">
+                              <div style="font-size: 10px; color: red;" *ngIf="form.controls['password'].touched && !form.controls['password'].valid">                                                                          
+                                <span *ngIf="form.controls['password'].hasError('required') ">  
+                                  Please enter password.
+                                </span> 
+                                <span *ngIf="form.controls['password'].hasError('minlength') ">  
+                                    Password min length is 6.  
+                                </span>  
+                                <span *ngIf="form.controls['password'].hasError('maxlength') ">  
+                                  Password max length is 10.  
+                               </span>                                                                                                                       
+                            </div>
+                          </div>
+                          <div class="checkbox">
+                              <label>
+                                  <input name="remember" type="checkbox" value="Remember Me">Remember Me
+                              </label>
+                          </div>
+                          <!-- Change this to a button or input when using this as a form -->
+                          <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+                            Login 
+                            <i class="fa fa-key"></i>
+                          </button>
+                      </fieldset>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

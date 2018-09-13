@@ -1,0 +1,171 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Edit User
+    </div>
+    <!-- /.panel-heading -->
+    <form [formGroup]="userForm">
+    <div class="panel-body alert-info">
+        
+          <div class="col-lg-6">                            
+            <div class="form-group">
+              <label>Email Id</label>
+              <input class="form-control" formControlName='email' placeholder="emailid" readonly>
+              <div style="font-size: 10px; color: red;" *ngIf="(userForm.controls['email'].touched || userForm.controls['email'].dirty)  && !userForm.controls['email'].valid">                                                                          
+                <span *ngIf="userForm.controls['email'].hasError('required') ">  
+                  Please enter email id.
+                </span>  
+                                    
+                <span *ngIf="userForm.controls['email'].hasError('email') ">  
+                  Invalid email id.
+                </span>                                                                                
+              </div>
+            </div>
+                
+            <div class="form-group">
+              <label>Full Name</label>
+              <input class="form-control" formControlName='fullname' placeholder="fullname">
+              <div style="font-size: 10px; color: red;" *ngIf="(userForm.controls['fullname'].touched || userForm.controls['fullname'].dirty) && !userForm.controls['fullname'].valid">                                                                          
+                  <span *ngIf="userForm.controls['fullname'].hasError('required') ">  
+                    Please enter user name.
+                  </span> 
+                  <span *ngIf="userForm.controls['fullname'].hasError('minlength') ">  
+                      User name min length is 6.  
+                  </span>  
+                  <span *ngIf="userForm.controls['fullname'].hasError('maxlength') ">  
+                    User name max length is 250.  
+                 </span>                                                                                                                       
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>User Name</label>
+              <input class="form-control" formControlName='username' placeholder="username">
+              <div style="font-size: 10px; color: red;" *ngIf="(userForm.controls['username'].touched || userForm.controls['username'].dirty) && !userForm.controls['username'].valid">                                                                          
+                  <span *ngIf="userForm.controls['username'].hasError('required') ">  
+                    Please enter user name.
+                  </span> 
+                  <span *ngIf="userForm.controls['username'].hasError('minlength') ">  
+                      User name min length is 6.  
+                  </span>  
+                  <span *ngIf="userForm.controls['username'].hasError('maxlength') ">  
+                    User name max length is 256.  
+                 </span>                                                                                                                       
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input class="form-control" formControlName='phonenumber' placeholder="phonenumber">
+              <div style="font-size: 10px; color: red;" *ngIf="(userForm.controls['phonenumber'].touched || userForm.controls['phonenumber'].dirty) && !userForm.controls['phonenumber'].valid">                                                                          
+                  <span *ngIf="userForm.controls['phonenumber'].hasError('required') ">  
+                    Please enter phone number.
+                  </span> 
+                  <span *ngIf="userForm.controls['phonenumber'].hasError('pattern') ">  
+                      Enter only numbers.
+                  </span> 
+                  <span *ngIf="userForm.controls['phonenumber'].hasError('minlength') ">  
+                    Phone number min length is 10.  
+                  </span>  
+                  <span *ngIf="userForm.controls['phonenumber'].hasError('maxlength') ">  
+                    Phone number max length is 10.  
+                  </span>                                                                                                                      
+              </div>
+            </div>  
+                              
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+              <label>Password</label>
+              <input class="form-control" formControlName='password' type="password" placeholder="password">
+              <div style="font-size: 10px; color: red;" *ngIf="(userForm.controls['password'].touched || userForm.controls['phonenumber'].dirty) && !userForm.controls['password'].valid">                                                                          
+                  <span *ngIf="userForm.controls['password'].hasError('required') ">  
+                    Please enter password.
+                  </span> 
+                  <span *ngIf="userForm.controls['password'].hasError('minlength') ">  
+                      Password min length is 6.  
+                  </span>  
+                  <span *ngIf="userForm.controls['password'].hasError('maxlength') ">  
+                    Password max length is 25.  
+                 </span>                                                                                                                       
+              </div>
+            </div>
+
+            <div class="form-group">
+                <label> </label>
+              </div>
+
+            <div class="form-group">
+              <div class="col-lg-4">
+                  <div class="checkbox">
+                      <label>
+                        <input type="checkbox" formControlName="chkEmailConfirm" value="">Email Confirm
+                      </label>
+                  </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-4">
+                    <div class="checkbox">
+                        <label>
+                          <input type="checkbox" formControlName="chkActive" value="">Active
+                        </label>
+                    </div>
+                </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>Created By</label>
+                    {{userCreatedBy}} 
+                </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+              <div class="col-lg-6">
+                  <div class="form-group">
+                      <label>Created Date</label>
+                      <input class="form-control" formControlName="createddate" readonly placeholder="createddate">
+                  </div>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <div class="col-lg-6">
+                  <div class="form-group">
+                      <label>Modified By</label>
+                     {{userModifiedBy}}
+                  </div>
+              </div>
+            </div>
+  
+            <div class="form-group">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Modified Date</label>
+                        <input class="form-control" formControlName="modifieddate" readonly placeholder="modifiedddate">
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+                      
+    </div>
+    <div class="panel-footer">
+        <button type="button" class="btn btn-outline btn-success" [disabled]="userForm.invalid" (click)="updateUserProfile()">Update
+          <i class="fa fa-save"></i>
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-outline btn-danger" (click)="deleteUser()">Delete
+          <i class="fa fa-times-circle"></i>
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-outline btn-info" [routerLink]="['../../list']">Back
+          <i class="fa fa-backward"></i>
+        </button>
+        
+    </div>
+  </form>
+</div>
