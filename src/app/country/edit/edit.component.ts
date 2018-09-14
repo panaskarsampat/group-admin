@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params} from '@angular/router';
+import { ActivatedRoute, Params, Router} from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormControl,FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 
 import { CountryModels } from '../country-models';
 import { CountryService } from '../country.service';
