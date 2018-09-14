@@ -1,3 +1,88 @@
-<p>
-  edit works!
-</p>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+      Edit City
+  </div>
+  <!-- /.panel-heading -->
+  <form [formGroup]="cityForm">
+  <div class="panel-body alert-info">
+      
+        <div class="col-lg-6">                            
+            
+          <div class="form-group">
+              <label for="sel1">State Name</label>
+              <select id="sel1" class="form-control" formControlName='stateid' [(ngModel)]="cityForm.value.stateid" (ngModelChange)='onStateSelect($event)'>
+                <option *ngFor="let state of stateList" [value]="state.StateId">{{ state.StateName | uppercase}}</option>
+              </select>
+              <div style="font-size: 10px; color: red;" *ngIf="(cityForm.controls['stateid'].touched || cityForm.controls['stateid'].dirty) && !cityForm.controls['stateid'].valid">                                                                          
+                  <span *ngIf="cityForm.controls['stateid'].hasError('required') ">  
+                    Please select country name.
+                  </span> 
+                  <span *ngIf="cityForm.controls['stateid'].hasError('minlength') ">  
+                      Country code min length is 3.  
+                  </span>  
+                  <span *ngIf="cityForm.controls['stateid'].hasError('maxlength') ">  
+                    Country code max length is 3.  
+                  </span>                                                                                                                       
+              </div>
+            </div>
+
+          <div class="form-group">
+            <label>City Code</label>
+            <input class="form-control" formControlName='citycode' placeholder="city code" [(ngModel)]="cityForm.value.citycode" uppercase>
+            <div style="font-size: 10px; color: red;" *ngIf="(cityForm.controls['citycode'].touched || cityForm.controls['citycode'].dirty) && !cityForm.controls['citycode'].valid">                                                                          
+                <span *ngIf="cityForm.controls['citycode'].hasError('required') ">  
+                  Please enter country code.
+                </span> 
+                <span *ngIf="cityForm.controls['citycode'].hasError('minlength') ">  
+                    Country code min length is 3.  
+                </span>  
+                <span *ngIf="cityForm.controls['citycode'].hasError('maxlength') ">  
+                  Country code max length is 3.  
+               </span>                                                                                                                       
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>City Name</label>
+            <input class="form-control" formControlName='cityname' placeholder="city name" [(ngModel)]="cityForm.value.cityname" uppercase>
+            <div style="font-size: 10px; color: red;" *ngIf="(cityForm.controls['cityname'].touched || cityForm.controls['cityname'].dirty) && !cityForm.controls['cityname'].valid">                                                                          
+                <span *ngIf="cityForm.controls['cityname'].hasError('required') ">  
+                  Please enter country name.
+                </span> 
+                <span *ngIf="cityForm.controls['cityname'].hasError('minlength') ">  
+                    Country name min length is 3.  
+                </span>  
+                <span *ngIf="cityForm.controls['cityname'].hasError('maxlength') ">  
+                  Country name max length is 256.  
+               </span>                                                                                                                       
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-lg-4">
+                <div class="checkbox">
+                    <label>
+                      <input type="checkbox" formControlName="chkActive" value="">Active
+                    </label>
+                </div>
+            </div>
+        </div>                            
+      </div>
+                          
+  </div>
+  <div class="panel-footer">
+      <button type="button" class="btn btn-outline btn-success" [disabled]="cityForm.invalid" (click)="updateCountry()">Update
+        <i class="fa fa-save"></i>
+      </button>
+      &nbsp;
+      <button type="button" class="btn btn-outline btn-danger" (click)="deleteCountry()">Delete
+        <i class="fa fa-times-circle"></i>
+      </button>
+      &nbsp;
+      <button type="button" class="btn btn-outline btn-info" [routerLink]="['../../list']">Back
+        <i class="fa fa-backward"></i>
+      </button>
+      
+  </div>
+</form>
+</div>
+

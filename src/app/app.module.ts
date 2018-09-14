@@ -1,3 +1,5 @@
+import { CityModels } from './city/city-models';
+import { StateModels } from './state/state-models';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router'
@@ -32,17 +34,29 @@ import { DashboardComponent } from './home/dashboard/dashboard.component';
 import { UserEditComponent } from './user/edit/edit.component';
 import { UserCreateComponent } from './user/create/create.component';
 import { UserListComponent } from './user/user-list/user-list.component';
+//country 
 import { CountryComponent } from './country/country.component';
 import { CountryListComponent } from './country/list/list.component';
 import { CountryEditComponent } from './country/edit/edit.component';
 import { CountryCreateComponent } from './country/create/create.component';
+//satet
 import { StateComponent } from './state/state.component';
+import { StateListComponent } from './state/list/list.component';
+import { StateCreateComponent } from './state/create/create.component';
+import { StateEditComponent } from './state/edit/edit.component';
+
 import { CityComponent } from './city/city.component';
+import { CityListComponent } from './city/list/list.component';
+import { CityEditComponent } from './city/edit/edit.component';
+import { CityCreateComponent } from './city/create/create.component';
+
 import { CompanyComponent } from './company/company.component';
 import { JobsComponent } from './jobs/jobs.component';
 import { PositionComponent } from './position/position.component';
 import { WorkComponent } from './work/work.component';
 import { UpperCaseDirective } from './common-directives/upper-case.directive';
+import { CountryModels } from './country/country-models';
+
 
 @NgModule({
   declarations: [
@@ -56,8 +70,13 @@ import { UpperCaseDirective } from './common-directives/upper-case.directive';
     HeaderLeftComponent,
     LeftNavigationsComponent,
     ChildComponentsComponent,
-    DashboardComponent,  
-    UserEditComponent, UserCreateComponent, UserListComponent, CountryComponent, CountryListComponent, CountryEditComponent, CountryCreateComponent, StateComponent, CityComponent, CompanyComponent, JobsComponent, PositionComponent, WorkComponent, UpperCaseDirective
+    DashboardComponent,
+    UserEditComponent, UserCreateComponent, UserListComponent,
+    CountryComponent, CountryListComponent, CountryEditComponent, CountryCreateComponent,     
+    StateComponent, StateListComponent, StateEditComponent, StateCreateComponent,
+    CityComponent, CityCreateComponent, CityEditComponent, CityListComponent,
+    CompanyComponent,
+    JobsComponent, PositionComponent, WorkComponent, UpperCaseDirective
   ],
   imports: [
     BrowserModule,
@@ -68,7 +87,8 @@ import { UpperCaseDirective } from './common-directives/upper-case.directive';
     NgxSpinnerModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [UserDataService, UserModels, UserService, LoginService],
+  exports:[],
+  providers: [UserDataService, UserModels, UserService, LoginService, CountryModels, StateModels, CityModels],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
