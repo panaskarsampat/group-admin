@@ -9,7 +9,7 @@
         <div class="col-lg-6">                            
           
           <div class="form-group">
-            <label for="sel1">Select Country:</label>
+            <label for="sel1">Select Country</label>
               <select id="sel1" class="form-control" formControlName='countryid' [(ngModel)]="stateForm.value.countryid" (ngModelChange)='onCountrySelect($event)'>
                   <option value=0>{{ 'select Country' | uppercase}}</option>
                 <option *ngFor="let country of countryList" [value]="country.CountryId">{{ country.CountryName | uppercase}}</option>
