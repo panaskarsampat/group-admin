@@ -23,9 +23,9 @@ export class TypeEditComponent implements OnInit {
         Validators.maxLength(250)
       ]))     
     })
-   }
+  }
 
-   loadTypeById(id){
+  loadTypeById(id){
     this.spinner.show();
     setTimeout(()=>{
       this.dataService.getById(id).subscribe(

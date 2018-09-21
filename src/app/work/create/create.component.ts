@@ -23,7 +23,9 @@ export class WorkCreateComponent implements OnInit {
 
     this.workForm  = this.fb.group({
       workname: new FormControl('', Validators.compose([
-        Validators.required,
+        Validators.required,        
+        Validators.minLength(3),
+        Validators.maxLength(256)    
       ])),
      
     });

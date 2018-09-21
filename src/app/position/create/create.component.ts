@@ -21,7 +21,7 @@ export class PositionCreateComponent implements OnInit {
       positionName: new FormControl('',Validators.compose([
         Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(50)
+        Validators.maxLength(100)
       ]))
     })
   }

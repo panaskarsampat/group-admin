@@ -14,16 +14,10 @@
               <option [value]="0">Select Country</option>
               <option *ngFor="let country of countryList" [value]="country.CountryId">{{ country.CountryName | uppercase}}</option>
             </select>
-            <div style="font-size: 10px; color: red;" *ngIf="(stateForm.controls['countryid'].touched || stateForm.controls['countryid'].dirty) && !stateForm.controls['countryid'].valid">                                                                          
-                <span *ngIf="stateForm.controls['countryid'].hasError('required') ">  
-                  Please select country name.
-                </span> 
-                <span *ngIf="countryForm.controls['countryid'].hasError('minlength') ">  
-                    Country code min length is 3.  
-                </span>  
-                <span *ngIf="countryForm.controls['countryid'].hasError('maxlength') ">  
-                  Country code max length is 3.  
-               </span>                                                                                                                       
+            <div style="font-size: 10px; color: red;" *ngIf="(stateForm.controls['countryid'].touched || stateForm.controls['countryid'].dirty) && !stateForm.controls['countryid'].valid">
+                <span *ngIf="countryForm.controls['countryid'].hasError('min') ">  
+                    Please select country. 
+                </span>                                                                                                                       
             </div>
           </div>
 
@@ -54,7 +48,7 @@
                   State name min length is 3.  
                 </span>  
                 <span *ngIf="stateForm.controls['statename'].hasError('maxlength') ">  
-                  State name max length is 256.  
+                  State name max length is 250.  
                </span>                                                                                                                       
             </div>
           </div>

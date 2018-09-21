@@ -27,7 +27,7 @@
                 <option *ngFor="let state of stateList" [value]="state.StateId">{{ state.StateName | uppercase}}</option>
               </select>
               <div style="font-size: 10px; color: red;" *ngIf="(companyForm.controls['stateId'].touched || companyForm.controls['stateId'].dirty) && !companyForm.controls['stateId'].valid">                                                                          
-                  <span *ngIf="companyForm.controls['countryId'].hasError('min') ">  
+                  <span *ngIf="companyForm.controls['stateId'].hasError('min') ">  
                       Please select state.  
                   </span>                                                                      
               </div>
@@ -43,7 +43,7 @@
                   <option *ngFor="let city of cityList" [value]="city.CityId">{{ city.CityName | uppercase}}</option>
                 </select>
                 <div style="font-size: 10px; color: red;" *ngIf="(companyForm.controls['cityId'].touched || companyForm.controls['cityId'].dirty) && !companyForm.controls['cityId'].valid">                                                                          
-                    <span *ngIf="companyForm.controls['countryId'].hasError('min') ">  
+                    <span *ngIf="companyForm.controls['cityId'].hasError('min') ">  
                         Please select city.  
                     </span>                                                                                                        
                 </div>
@@ -57,7 +57,7 @@
                   <option *ngFor="let category of categoryList" [value]="category.CompanyCategoryId">{{ category.CompanyCategory | uppercase}}</option>
                 </select>
                 <div style="font-size: 10px; color: red;" *ngIf="(companyForm.controls['companyCategoryId'].touched || companyForm.controls['companyCategoryId'].dirty) && !companyForm.controls['companyCategoryId'].valid">                                                                          
-                    <span *ngIf="companyForm.controls['countryId'].hasError('min') ">  
+                    <span *ngIf="companyForm.controls['companyCategoryId'].hasError('min') ">  
                         Please select company category.  
                     </span>                                                                 
                 </div>
@@ -73,7 +73,7 @@
                   <option *ngFor="let type of typeList" [value]="type.CompanyTypeId">{{ type.CompanyType | uppercase}}</option>
                 </select>
                 <div style="font-size: 10px; color: red;" *ngIf="(companyForm.controls['companyTypeId'].touched || companyForm.controls['companyTypeId'].dirty) && !companyForm.controls['companyTypeId'].valid">                                                                          
-                    <span *ngIf="companyForm.controls['countryId'].hasError('min') ">  
+                    <span *ngIf="companyForm.controls['companyTypeId'].hasError('min') ">  
                         Please select company type.  
                     </span>                                                                                                                   
                 </div>
@@ -189,7 +189,7 @@
           </div>
           <div class="col-lg-6">
               <div class="form-group">
-                  <label>Company Domail</label>
+                  <label>Company Domain</label>
                   <input class="form-control" formControlName='mailId' placeholder="Company code" [(ngModel)]="companyForm.value.mailId" uppercase>
                   <div style="font-size: 10px; color: red;" *ngIf="(companyForm.controls['mailId'].touched || companyForm.controls['mailId'].dirty) && !companyForm.controls['mailId'].valid">                                                                          
                       <span *ngIf="companyForm.controls['mailId'].hasError('required') ">  
@@ -215,7 +215,7 @@
                           Please enter company Phone number.
                         </span> 
                         <span *ngIf="companyForm.controls['phoneNumber1'].hasError('minlength') ">  
-                          Company phone number min length is 15.  
+                          Company phone number min length is 10.  
                         </span>  
                         <span *ngIf="companyForm.controls['phoneNumber1'].hasError('maxlength') ">  
                           Company phone number max length is 25.  
@@ -242,40 +242,40 @@
               </div>
     </div>
     <div class="row">                
-              <div class="col-lg-6">
-                  <div class="form-group">
-                      <label>Company Website</label>
-                      <input class="form-control" formControlName='siteId' placeholder="Company code" [(ngModel)]="companyForm.value.siteId" uppercase>
-                      <div style="font-size: 10px; color: red;" *ngIf="(companyForm.controls['siteId'].touched || companyForm.controls['siteId'].dirty) && !companyForm.controls['siteId'].valid">                                                                          
-                          <span *ngIf="companyForm.controls['siteId'].hasError('required') ">  
-                            Please enter company website.
-                          </span> 
-                          <span *ngIf="companyForm.controls['siteId'].hasError('minlength') ">  
-                            Company website min length is 8.  
-                          </span>  
-                          <span *ngIf="companyForm.controls['siteId'].hasError('maxlength') ">  
-                            Company website max length is 250.  
-                          </span>                                                                                                                       
-                      </div>
-                    </div>
-                </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label>Company Website</label>
+            <input class="form-control" formControlName='siteId' placeholder="Company code" [(ngModel)]="companyForm.value.siteId" uppercase>
+            <div style="font-size: 10px; color: red;" *ngIf="(companyForm.controls['siteId'].touched || companyForm.controls['siteId'].dirty) && !companyForm.controls['siteId'].valid">                                                                          
+                <span *ngIf="companyForm.controls['siteId'].hasError('required') ">  
+                  Please enter company website.
+                </span> 
+                <span *ngIf="companyForm.controls['siteId'].hasError('minlength') ">  
+                  Company website min length is 8.  
+                </span>  
+                <span *ngIf="companyForm.controls['siteId'].hasError('maxlength') ">  
+                  Company website max length is 250.  
+                </span>                                                                                                                       
+            </div>
+          </div>
+    </div>
     </div>
     <div class="row">
-                <div class="col-lg-12">
-                    <label>About Company</label>
-                  <textarea [(ngModel)]="companyForm.value.aboutCompany" class="form-control" rows='5' formControlName='aboutCompany'></textarea>
-                  <div style="font-size: 10px; color: red;" *ngIf="(companyForm.controls['aboutCompany'].touched || companyForm.controls['aboutCompany'].dirty) && !companyForm.controls['aboutCompany'].valid">                                                                          
-                      <span *ngIf="companyForm.controls['aboutCompany'].hasError('required') ">  
-                        Please enter company code.
-                      </span> 
-                      <span *ngIf="companyForm.controls['aboutCompany'].hasError('minlength') ">  
-                        Abount company min length is 20.  
-                      </span>  
-                      <span *ngIf="companyForm.controls['aboutCompany'].hasError('maxlength') ">  
-                        About company max length is 250.  
-                      </span>                                                                                                                       
-                  </div>
-                </div>
+      <div class="col-lg-12">
+          <label>About Company</label>
+        <textarea [(ngModel)]="companyForm.value.aboutCompany" class="form-control" rows='5' formControlName='aboutCompany'></textarea>
+        <div style="font-size: 10px; color: red;" *ngIf="(companyForm.controls['aboutCompany'].touched || companyForm.controls['aboutCompany'].dirty) && !companyForm.controls['aboutCompany'].valid">                                                                          
+            <span *ngIf="companyForm.controls['aboutCompany'].hasError('required') ">  
+              Please enter company code.
+            </span> 
+            <span *ngIf="companyForm.controls['aboutCompany'].hasError('minlength') ">  
+              Abount company min length is 20.  
+            </span>  
+            <span *ngIf="companyForm.controls['aboutCompany'].hasError('maxlength') ">  
+              About company max length is 250.  
+            </span>                                                                                                                       
+        </div>
+      </div>
     </div>
     <div class="col-lg-6">  
         <div class="toggle-panel" *ngIf="show" [hidden]="hidden">

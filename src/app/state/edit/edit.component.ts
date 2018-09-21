@@ -20,8 +20,9 @@ export class StateEditComponent implements OnInit {
 
   constructor(private router:Router, private stateDataService:StateService, private countryDataService: CountryService, private fb:FormBuilder, private activatedRoute:ActivatedRoute, private spinner:NgxSpinnerService) {
     this.stateForm  = this.fb.group({      
-      countryid: new FormControl(0,Validators.compose(
-        [] )),
+      countryid: new FormControl(0,Validators.compose([
+        Validators.min(2),
+      ])),
       statecode: new FormControl('',Validators.compose([
         Validators.required,
         Validators.minLength(2),

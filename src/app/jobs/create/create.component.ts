@@ -71,7 +71,7 @@ export class JobsCreateComponent implements OnInit {
       jobName: new FormControl('',Validators.compose([
         Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(50)
+        Validators.maxLength(100)
       ])),
       jobTitle: new FormControl('',Validators.compose([
         Validators.required,
@@ -99,7 +99,7 @@ export class JobsCreateComponent implements OnInit {
       ])),
       workSkills: new FormControl('',Validators.compose([    
         Validators.minLength(10),
-        Validators.maxLength(250)
+        Validators.maxLength(512)
       ])),
 
       createdBy: new FormControl('',Validators.compose([

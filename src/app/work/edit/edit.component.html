@@ -14,7 +14,13 @@
             <div style="font-size: 10px; color: red;" *ngIf="(workForm.controls['workname'].touched || workForm.controls['workname'].dirty) && !workForm.controls['workname'].valid">                                                                          
                 <span *ngIf="workForm.controls['workname'].hasError('required') ">  
                   Please enter work.
-                </span>                                                                                                                   
+                </span> 
+                <span *ngIf="typeForm.controls['companytype'].hasError('minlength') ">  
+                    Company type min length is 3.  
+                </span>  
+                <span *ngIf="typeForm.controls['companytype'].hasError('maxlength') ">  
+                  Company type max length is 256.  
+               </span>                                                                                                                   
             </div>
           </div>     
                                 

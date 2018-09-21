@@ -66,7 +66,7 @@ export class CompanyCreateComponent implements OnInit {
       companyName: new FormControl('',Validators.compose([
         Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(50)
+        Validators.maxLength(100)
       ])),
       aboutCompany: new FormControl('',Validators.compose([
         Validators.required,
@@ -89,7 +89,7 @@ export class CompanyCreateComponent implements OnInit {
       ])),
       phoneNumber1: new FormControl('',Validators.compose([
         Validators.required,
-        Validators.minLength(15),
+        Validators.minLength(10),
         Validators.maxLength(25)
       ])),
       phoneNumber2: new FormControl('',Validators.compose([    

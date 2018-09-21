@@ -7,7 +7,7 @@
       <div class="row">
         <div class="col-lg-6">
             <div class="form-group">
-                <label for="sel1">Select Country:</label>
+                <label for="sel1">Select Country</label>
                 <select id="sel1" class="form-control" formControlName='locationCountryId' [(ngModel)]="jobForm.value.locationCountryId" (ngModelChange)='onCountrySelect($event)'>
                   <option [value]="0">Select Country</option>
                   <option *ngFor="let country of countryList" [value]="country.CountryId">{{ country.CountryName | uppercase}}</option>
@@ -21,7 +21,7 @@
         </div>
         <div class="col-lg-6">
             <div class="form-group">
-                <label for="sel1">Select State:</label>
+                <label for="sel1">Select State</label>
                 <select id="sel1" class="form-control" formControlName='locationStateId' [(ngModel)]="jobForm.value.locationStateId" (ngModelChange)='onStateSelect($event)'>
                   <option [value]="0">Select state</option>
                   <option *ngFor="let state of stateList" [value]="state.StateId">{{ state.StateName | uppercase}}</option>
@@ -37,7 +37,7 @@
       <div class="row">
           <div class="col-lg-6">
               <div class="form-group">
-                  <label for="sel1">Select City:</label>
+                  <label for="sel1">Select City</label>
                   <select id="sel1" class="form-control" formControlName='locationCityId' [(ngModel)]="jobForm.value.locationCityId" (ngModelChange)='onCitySelect($event)'>
                     <option [value]="0">Select City</option>
                     <option *ngFor="let city of cityList" [value]="city.CityId">{{ city.CityName | uppercase}}</option>
@@ -51,7 +51,7 @@
           </div>
           <div class="col-lg-6">
               <div class="form-group">
-                  <label for="sel1">Select company:</label>
+                  <label for="sel1">Select company</label>
                   <select id="sel1" class="form-control" formControlName='companyId' [(ngModel)]="jobForm.value.companyId" (ngModelChange)='onCompanySelect($event)'>
                     <option [value]="0">Select Company:</option>
                     <option *ngFor="let company of companyList" [value]="company.CompanyId">{{ company.CompanyName | uppercase}}</option>
@@ -67,7 +67,7 @@
       <div class="row">
           <div class="col-lg-6">
               <div class="form-group">
-                  <label for="sel1">Select Position:</label>
+                  <label for="sel1">Select Position</label>
                   <select id="sel1" class="form-control" formControlName='positionId' [(ngModel)]="jobForm.value.positionId" (ngModelChange)='onPositionSelect($event)'>
                     <option [value]="0">Select Position</option>
                     <option *ngFor="let position of positionList" [value]="position.PositionId">{{ position.PositionName | uppercase}}</option>
@@ -81,7 +81,7 @@
           </div>
           <div class="col-lg-6">
               <div class="form-group">
-                  <label for="sel1">Select Work:</label>
+                  <label for="sel1">Select Work</label>
                   <select id="sel1" class="form-control" formControlName='workId' [(ngModel)]="jobForm.value.workId" (ngModelChange)='onWorkSelect($event)'>
                     <option [value]="0">Select work</option>
                     <option *ngFor="let work of workList" [value]="work.WorkId">{{ work.WorkName | uppercase}}</option>
@@ -125,7 +125,7 @@
                       Job name min length is 3.  
                     </span>  
                     <span *ngIf="jobForm.controls['jobName'].hasError('maxlength') ">  
-                      Job name max length is 50.  
+                      Job name max length is 100.  
                     </span>                                                                                                                       
                 </div>
               </div>
@@ -177,10 +177,10 @@
                           Please enter work experience.
                         </span> 
                         <span *ngIf="jobForm.controls['workExp'].hasError('minlength') ">  
-                          Work experience min length is 8.  
+                          Work experience min length is 1.  
                         </span>  
                         <span *ngIf="jobForm.controls['workExp'].hasError('maxlength') ">  
-                          Work experience max length is 250.  
+                          Work experience max length is 2.  
                         </span>                                                                                                                       
                     </div>
                   </div>
@@ -197,7 +197,7 @@
                           Work skills min length is 5.  
                         </span>  
                         <span *ngIf="jobForm.controls['workSkills'].hasError('maxlength') ">  
-                          Work skills max length is 250.  
+                          Work skills max length is 512.  
                         </span>                                                                                                                       
                     </div>
                   </div>
@@ -223,21 +223,18 @@
         </div>          
       </div>
       <div class="row">
-                  <div class="col-lg-12">
-                      <label>Job Description</label>
-                    <textarea [(ngModel)]="jobForm.value.jobDesc" class="form-control" rows='5' formControlName='jobDesc'></textarea>
-                    <div style="font-size: 10px; color: red;" *ngIf="(jobForm.controls['jobDesc'].touched || jobForm.controls['jobDesc'].dirty) && !jobForm.controls['jobDesc'].valid">                                                                          
-                        <span *ngIf="jobForm.controls['jobDesc'].hasError('required') ">  
-                          Please enter description about job.
-                        </span> 
-                        <span *ngIf="jobForm.controls['jobDesc'].hasError('minlength') ">  
-                          Min length of job description is 20.  
-                        </span>  
-                        <span *ngIf="jobForm.controls['jobDesc'].hasError('maxlength') ">  
-                          Max length of job description is 250.  
-                        </span>                                                                                                                       
-                    </div>
-                  </div>
+        <div class="col-lg-12">
+            <label>Job Description</label>
+          <textarea [(ngModel)]="jobForm.value.jobDesc" class="form-control" rows='5' formControlName='jobDesc'></textarea>
+          <div style="font-size: 10px; color: red;" *ngIf="(jobForm.controls['jobDesc'].touched || jobForm.controls['jobDesc'].dirty) && !jobForm.controls['jobDesc'].valid">                                                                          
+              <span *ngIf="jobForm.controls['jobDesc'].hasError('required') ">  
+                Please enter description about job.
+              </span> 
+              <span *ngIf="jobForm.controls['jobDesc'].hasError('minlength') ">  
+                Min length of job description is 20.  
+              </span>                                                                                                                        
+          </div>
+        </div>
       </div>
       <div class="col-lg-6">  
         <div class="toggle-panel" *ngIf="show" [hidden]="hidden">

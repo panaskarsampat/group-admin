@@ -17,7 +17,9 @@ export class WorkEditComponent implements OnInit {
   constructor(private router: Router,private workService: WorkService,private fb: FormBuilder,private activatedRoute: ActivatedRoute,private spinner: NgxSpinnerService) {
     this.workForm  = this.fb.group({      
       workname: new FormControl('',Validators.compose([
-        Validators.required,       
+        Validators.required,           
+        Validators.minLength(3),
+        Validators.maxLength(256)    
       ])),   
      
     });

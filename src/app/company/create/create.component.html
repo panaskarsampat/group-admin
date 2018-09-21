@@ -1,6 +1,6 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
-        Create State
+        Create Company
     </div>
     <!-- /.panel-heading -->
     <form [formGroup]="companyForm">
@@ -8,7 +8,7 @@
       <div class="row">
           <div class="col-lg-6">
               <div class="form-group">
-                  <label for="sel1">Select Country:</label>
+                  <label for="sel1">Select Country</label>
                   <select id="sel1" class="form-control" formControlName='countryId' [(ngModel)]="companyForm.value.countryId" (ngModelChange)='onCountrySelect($event)'>
                     <option [value]="0">Select Country</option>
                     <option *ngFor="let country of countryList" [value]="country.CountryId">{{ country.CountryName | uppercase}}</option>
@@ -22,7 +22,7 @@
           </div>
           <div class="col-lg-6">
               <div class="form-group">
-                  <label for="sel1">Select State:</label>
+                  <label for="sel1">Select State</label>
                   <select id="sel1" class="form-control" formControlName='stateId' [(ngModel)]="companyForm.value.stateId" (ngModelChange)='onStateSelect($event)'>
                     <option [value]="0">Select state</option>
                     <option *ngFor="let state of stateList" [value]="state.StateId">{{ state.StateName | uppercase}}</option>
@@ -38,7 +38,7 @@
       <div class="row">
           <div class="col-lg-6">
               <div class="form-group">
-                  <label for="sel1">Select City:</label>
+                  <label for="sel1">Select City</label>
                   <select id="sel1" class="form-control" formControlName='cityId' [(ngModel)]="companyForm.value.cityId" (ngModelChange)='onCitySelect($event)'>
                     <option [value]="0">Select City</option>
                     <option *ngFor="let city of cityList" [value]="city.CityId">{{ city.CityName | uppercase}}</option>
@@ -52,7 +52,7 @@
           </div>
           <div class="col-lg-6">
               <div class="form-group">
-                  <label for="sel1">Select company category:</label>
+                  <label for="sel1">Select company category</label>
                   <select id="sel1" class="form-control" formControlName='companyCategoryId' [(ngModel)]="companyForm.value.companyCategoryId" (ngModelChange)='onCategorySelect($event)'>
                     <option [value]="0">Select Country</option>
                     <option *ngFor="let category of categoryList" [value]="category.CompanyCategoryId">{{ category.CompanyCategory | uppercase}}</option>
@@ -68,7 +68,7 @@
       <div class="row">
           <div class="col-lg-6">
               <div class="form-group">
-                  <label for="sel1">Select City:</label>
+                  <label for="sel1">Select City</label>
                   <select id="sel1" class="form-control" formControlName='companyTypeId' [(ngModel)]="companyForm.value.companyTypeId" (ngModelChange)='onTypeSelect($event)'>
                     <option [value]="0">Select City</option>
                     <option *ngFor="let type of typeList" [value]="type.CompanyTypeId">{{ type.CompanyType | uppercase}}</option>
@@ -111,7 +111,7 @@
                         Company code min length is 3.  
                       </span>  
                       <span *ngIf="companyForm.controls['companyCode'].hasError('maxlength') ">  
-                        Company code max length is 5.  
+                        Company code max length is 8.  
                       </span>                                                                                                                       
                   </div>
                 </div>
@@ -128,7 +128,7 @@
                         Company name min length is 3.  
                       </span>  
                       <span *ngIf="companyForm.controls['companyName'].hasError('maxlength') ">  
-                        Company name max length is 250.  
+                        Company name max length is 100.  
                       </span>                                                                                                                       
                   </div>
                 </div>
@@ -190,7 +190,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label>Company Domail</label>
+                    <label>Company Domain</label>
                     <input class="form-control" formControlName='mailId' placeholder="Company code" [(ngModel)]="companyForm.value.mailId" uppercase>
                     <div style="font-size: 10px; color: red;" *ngIf="(companyForm.controls['mailId'].touched || companyForm.controls['mailId'].dirty) && !companyForm.controls['mailId'].valid">                                                                          
                         <span *ngIf="companyForm.controls['mailId'].hasError('required') ">  
@@ -216,7 +216,7 @@
                         Please enter company Phone number.
                       </span> 
                       <span *ngIf="companyForm.controls['phoneNumber1'].hasError('minlength') ">  
-                        Company phone number min length is 15.  
+                        Company phone number min length is 10.  
                       </span>  
                       <span *ngIf="companyForm.controls['phoneNumber1'].hasError('maxlength') ">  
                         Company phone number max length is 25.  
@@ -243,23 +243,23 @@
             </div>
       </div>
       <div class="row">                
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label>Company Website</label>
-                        <input class="form-control" formControlName='siteId' placeholder="Company code" [(ngModel)]="companyForm.value.siteId" uppercase>
-                        <div style="font-size: 10px; color: red;" *ngIf="(companyForm.controls['siteId'].touched || companyForm.controls['siteId'].dirty) && !companyForm.controls['siteId'].valid">                                                                          
-                            <span *ngIf="companyForm.controls['siteId'].hasError('required') ">  
-                              Please enter company website.
-                            </span> 
-                            <span *ngIf="companyForm.controls['siteId'].hasError('minlength') ">  
-                              Company website min length is 8.  
-                            </span>  
-                            <span *ngIf="companyForm.controls['siteId'].hasError('maxlength') ">  
-                              Company website max length is 250.  
-                            </span>                                                                                                                       
-                        </div>
-                      </div>
-                  </div>
+      <div class="col-lg-6">
+          <div class="form-group">
+              <label>Company Website</label>
+              <input class="form-control" formControlName='siteId' placeholder="Company code" [(ngModel)]="companyForm.value.siteId" uppercase>
+              <div style="font-size: 10px; color: red;" *ngIf="(companyForm.controls['siteId'].touched || companyForm.controls['siteId'].dirty) && !companyForm.controls['siteId'].valid">                                                                          
+                  <span *ngIf="companyForm.controls['siteId'].hasError('required') ">  
+                    Please enter company website.
+                  </span> 
+                  <span *ngIf="companyForm.controls['siteId'].hasError('minlength') ">  
+                    Company website min length is 8.  
+                  </span>  
+                  <span *ngIf="companyForm.controls['siteId'].hasError('maxlength') ">  
+                    Company website max length is 250.  
+                  </span>                                                                                                                       
+              </div>
+            </div>
+        </div>
       </div>
       <div class="row">
           <div class="col-lg-12">
