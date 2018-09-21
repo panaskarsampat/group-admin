@@ -79,10 +79,25 @@ export class CountryEditComponent implements OnInit {
     },1000);
   }
 
+  deleteCountry(){
+    if(confirm('are you sure to delete?')){
+      this.spinner.show();
+      setTimeout(()=>{
+        this.countryDataService.deleteById(this.ediitCountry.CountryId).subscribe(
+          data=>{
+            this.spinner.hide();
+            this.router.navigate(['home/country/list']); 
+          },err=>{
+            this.spinner.hide();
+          }
+        );
+      },1000);
+    }
+  }
+
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
-      let id = params['id'];      
-      
+      let id = params['id'];            
       this.loadCountryById(id);              
     });
   }

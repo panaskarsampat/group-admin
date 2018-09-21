@@ -16,8 +16,7 @@ export class CountryCreateComponent implements OnInit {
   countryForm:FormGroup;
   
   constructor(private createCountry:CountryModels, private router:Router, private countryDataService:CountryService, private fb: FormBuilder, private activatedRoute : ActivatedRoute, private spinner: NgxSpinnerService) { 
-    this.countryForm  = this.fb.group({
-      
+    this.countryForm  = this.fb.group({      
       countrycode: new FormControl('',Validators.compose([
         Validators.required,
         Validators.minLength(3),
@@ -27,10 +26,8 @@ export class CountryCreateComponent implements OnInit {
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(250)
-      ])),
-      
-      chkActive:new FormControl(),
-     
+      ])),      
+      chkActive:new FormControl(),     
     })
   }
 

@@ -104,6 +104,22 @@ export class StateEditComponent implements OnInit {
     },1000);
   }
 
+  deleteState(){
+    if(confirm('are you sure to delete?')){
+      this.spinner.show();
+      setTimeout(()=>{
+        this.stateDataService.deleteById(this.editState.StateId).subscribe(
+          data=>{
+            this.spinner.hide();
+            this.router.navigate(['home/state/list']); 
+          },err=>{
+            this.spinner.hide();
+          }
+        );
+      },1000);
+    }
+  }
+
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
       let id = params['id'];            

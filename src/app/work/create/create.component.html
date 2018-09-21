@@ -1,3 +1,34 @@
-<p>
-  create works!
-</p>
+ <div class="panel panel-primary">
+<div class="panel-heading">
+    Create Work
+  </div>
+  
+  <form [formGroup]="workForm">
+    <div class="panel-body alert-info">
+      <div class="col-lg-6">  
+        <div class="form-group">
+          <label>Work Name</label>
+          <input class="form-control" formControlName='workname' placeholder="work name" [(ngModel)]="workForm.value.workname">          
+          <div style="font-size: 10px; color: red;" *ngIf="(workForm.controls['workname'].touched || workForm.controls['workname'].dirty) && !workForm.controls['workname'].valid">                                                                          
+              <span *ngIf="workForm.controls['workname'].hasError('required') ">  
+                  Please enter work name.
+              </span>                       
+          </div>     
+        </div>
+      </div>
+
+    </div>
+    <div class="panel-footer">
+      <button type="button" class="btn btn-outline btn-success" [disabled]="workForm.invalid" (click)="saveWork()">Save
+        <i class="fa fa-save"></i>
+      </button>
+
+      &nbsp;
+      <button type="button" class="btn btn-outline btn-info" [routerLink]="['../list']">Back
+        <i class="fa fa-backward"></i>
+      </button>
+
+    </div>
+  </form>
+</div> 
+

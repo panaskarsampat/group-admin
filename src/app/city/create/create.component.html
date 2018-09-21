@@ -14,15 +14,9 @@
                   <option [value]="0">Select State</option>
                 <option *ngFor="let state of stateList" [value]="state.StateId">{{ state.StateName | uppercase}}</option>
               </select>
-              <div style="font-size: 10px; color: red;" *ngIf="(cityForm.controls['stateid'].touched || cityForm.controls['stateid'].dirty) && !cityForm.controls['stateid'].valid">                                                                          
-                  <span *ngIf="cityForm.controls['stateid'].hasError('required') ">  
-                    Please select country name.
-                  </span> 
-                  <span *ngIf="cityForm.controls['stateid'].hasError('minlength') ">  
-                      Country code min length is 3.  
-                  </span>  
-                  <span *ngIf="cityForm.controls['stateid'].hasError('maxlength') ">  
-                    Country code max length is 3.  
+              <div style="font-size: 10px; color: red;" *ngIf="(cityForm.controls['stateid'].touched || cityForm.controls['stateid'].dirty) && !cityForm.controls['stateid'].valid">
+                  <span *ngIf="cityForm.controls['stateid'].hasError('min') ">  
+                      please select state.  
                   </span>                                                                                                                       
               </div>
             </div>

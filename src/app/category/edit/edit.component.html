@@ -1,0 +1,43 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+      Edit Category
+  </div>
+  <!-- /.panel-heading -->
+  <form [formGroup]="categoryForm">
+  <div class="panel-body alert-info">      
+        <div class="col-lg-6">       
+          <div class="form-group">
+            <label>Category Name</label>
+            <input class="form-control" formControlName='companycategory' placeholder="category name" [(ngModel)]="categoryForm.value.companycategory" uppercase>
+            <div style="font-size: 10px; color: red;" *ngIf="(categoryForm.controls['companycategory'].touched || categoryForm.controls['companycategory'].dirty) && !categoryForm.controls['companycategory'].valid">                                                                          
+                <span *ngIf="categoryForm.controls['companycategory'].hasError('required') ">  
+                  Please enter country category.
+                </span> 
+                <span *ngIf="categoryForm.controls['companycategory'].hasError('minlength') ">  
+                    Category name min length is 3.  
+                </span>  
+                <span *ngIf="categoryForm.controls['companycategory'].hasError('maxlength') ">  
+                  Category name max length is 250.  
+               </span>                                                                                                                       
+            </div>
+          </div>                         
+      </div>
+                          
+  </div>
+  <div class="panel-footer">
+      <button type="button" class="btn btn-outline btn-success" [disabled]="categoryForm.invalid" (click)="updateCategory()">Update
+        <i class="fa fa-save"></i>
+      </button>
+      &nbsp;
+      <button type="button" class="btn btn-outline btn-danger" (click)="deleteCategory()">Delete
+        <i class="fa fa-times-circle"></i>
+      </button>
+      &nbsp;
+      <button type="button" class="btn btn-outline btn-info" [routerLink]="['../../list']">Back
+        <i class="fa fa-backward"></i>
+      </button>
+      
+  </div>
+</form>
+</div>
+
