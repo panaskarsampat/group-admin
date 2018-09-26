@@ -13,15 +13,9 @@
               <select id="sel1" class="form-control" formControlName='stateid' [(ngModel)]="cityForm.value.stateid" (ngModelChange)='onStateSelect($event)'>
                 <option *ngFor="let state of stateList" [value]="state.StateId">{{ state.StateName | uppercase}}</option>
               </select>
-              <div style="font-size: 10px; color: red;" *ngIf="(cityForm.controls['stateid'].touched || cityForm.controls['stateid'].dirty) && !cityForm.controls['stateid'].valid">                                                                          
-                  <span *ngIf="cityForm.controls['stateid'].hasError('required') ">  
-                    Please select country name.
-                  </span> 
-                  <span *ngIf="cityForm.controls['stateid'].hasError('minlength') ">  
-                      Country code min length is 3.  
-                  </span>  
-                  <span *ngIf="cityForm.controls['stateid'].hasError('maxlength') ">  
-                    Country code max length is 3.  
+              <div style="font-size: 10px; color: red;" *ngIf="(cityForm.controls['stateid'].touched || cityForm.controls['stateid'].dirty) && !cityForm.controls['stateid'].valid">
+                  <span *ngIf="cityForm.controls['stateid'].hasError('min') ">  
+                    Please select state 
                   </span>                                                                                                                       
               </div>
             </div>
@@ -31,13 +25,13 @@
             <input class="form-control" formControlName='citycode' placeholder="city code" [(ngModel)]="cityForm.value.citycode" uppercase>
             <div style="font-size: 10px; color: red;" *ngIf="(cityForm.controls['citycode'].touched || cityForm.controls['citycode'].dirty) && !cityForm.controls['citycode'].valid">                                                                          
                 <span *ngIf="cityForm.controls['citycode'].hasError('required') ">  
-                  Please enter country code.
+                  Please enter city code.
                 </span> 
                 <span *ngIf="cityForm.controls['citycode'].hasError('minlength') ">  
-                    Country code min length is 3.  
+                  City code min length is 3.  
                 </span>  
                 <span *ngIf="cityForm.controls['citycode'].hasError('maxlength') ">  
-                  Country code max length is 3.  
+                  City code max length is 3.  
                </span>                                                                                                                       
             </div>
           </div>
@@ -47,13 +41,13 @@
             <input class="form-control" formControlName='cityname' placeholder="city name" [(ngModel)]="cityForm.value.cityname" uppercase>
             <div style="font-size: 10px; color: red;" *ngIf="(cityForm.controls['cityname'].touched || cityForm.controls['cityname'].dirty) && !cityForm.controls['cityname'].valid">                                                                          
                 <span *ngIf="cityForm.controls['cityname'].hasError('required') ">  
-                  Please enter country name.
+                  Please enter city name.
                 </span> 
                 <span *ngIf="cityForm.controls['cityname'].hasError('minlength') ">  
-                    Country name min length is 3.  
+                  City name min length is 3.  
                 </span>  
                 <span *ngIf="cityForm.controls['cityname'].hasError('maxlength') ">  
-                  Country name max length is 256.  
+                  City name max length is 250.  
                </span>                                                                                                                       
             </div>
           </div>
@@ -74,7 +68,7 @@
         <i class="fa fa-save"></i>
       </button>
       &nbsp;
-      <button type="button" class="btn btn-outline btn-danger" (click)="deleteCountry()">Delete
+      <button type="button" class="btn btn-outline btn-danger" (click)="deleteCity()">Delete
         <i class="fa fa-times-circle"></i>
       </button>
       &nbsp;

@@ -1,0 +1,41 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+      Create Company type
+  </div>
+  <!-- /.panel-heading -->
+  <form [formGroup]="typeForm">
+  <div class="panel-body alert-info">
+      
+        <div class="col-lg-6">                            
+                        
+          <div class="form-group">
+            <label>Company Type</label>
+            <input class="form-control" formControlName='companytype' placeholder="Company type" [(ngModel)]="typeForm.value.companytype" uppercase>
+            <div style="font-size: 10px; color: red;" *ngIf="(typeForm.controls['companytype'].touched || typeForm.controls['companytype'].dirty) && !typeForm.controls['companytype'].valid">                                                                          
+                <span *ngIf="typeForm.controls['companytype'].hasError('required') ">  
+                  Please enter company type.
+                </span> 
+                <span *ngIf="typeForm.controls['companytype'].hasError('minlength') ">  
+                    Company type min length is 3.  
+                </span>  
+                <span *ngIf="typeForm.controls['companytype'].hasError('maxlength') ">  
+                  Company type max length is 256.  
+               </span>                                                                                                                       
+            </div>
+          </div>                                   
+      </div>
+                          
+  </div>
+  <div class="panel-footer">
+      <button type="button" class="btn btn-outline btn-success" [disabled]="typeForm.invalid" (click)="saveType()">Save
+        <i class="fa fa-save"></i>
+      </button>
+      &nbsp;
+      <button type="button" class="btn btn-outline btn-info" [routerLink]="['../list']">Back
+        <i class="fa fa-backward"></i>
+      </button>
+      
+  </div>
+</form>
+</div>
+

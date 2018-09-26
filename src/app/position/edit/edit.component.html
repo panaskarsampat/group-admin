@@ -1,3 +1,46 @@
-<p>
-  edit works!
-</p>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Edit Position
+    </div>
+    <!-- /.panel-heading -->
+    <form [formGroup]="positionForm">
+    <div class="panel-body alert-info">
+        
+          <div class="col-lg-6">                                                     
+  
+            <div class="form-group">
+              <label>Position Name</label>
+              <input class="form-control" formControlName='positionName' placeholder="position name" [(ngModel)]="positionForm.value.positionName" uppercase>
+              <div style="font-size: 10px; color: red;" *ngIf="(positionForm.controls['positionName'].touched || positionForm.controls['positionName'].dirty) && !positionForm.controls['positionName'].valid">                                                                          
+                  <span *ngIf="positionForm.controls['positionName'].hasError('required') ">  
+                    Please enter country name.
+                  </span> 
+                  <span *ngIf="positionForm.controls['positionName'].hasError('minlength') ">  
+                      Country name min length is 3.  
+                  </span>  
+                  <span *ngIf="positionForm.controls['positionName'].hasError('maxlength') ">  
+                    Country name max length is 100.  
+                 </span>                                                                                                                       
+              </div>
+            </div>                         
+        </div>
+                            
+    </div>
+    <div class="panel-footer">
+        <button type="button" class="btn btn-outline btn-success" [disabled]="positionForm.invalid" (click)="update()">Update
+          <i class="fa fa-save"></i>
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-outline btn-danger" (click)="delete()">Delete
+          <i class="fa fa-times-circle"></i>
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-outline btn-info" [routerLink]="['../../list']">Back
+          <i class="fa fa-backward"></i>
+        </button>
+        
+    </div>
+  </form>
+  </div>
+  
+  

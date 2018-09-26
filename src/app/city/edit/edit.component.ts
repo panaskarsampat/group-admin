@@ -21,8 +21,8 @@ export class CityEditComponent implements OnInit {
 
   constructor(private router:Router, private cityDataService:CityService, private stateDataService: StateService, private fb:FormBuilder, private activatedRoute:ActivatedRoute, private spinner:NgxSpinnerService) { 
     this.cityForm  = this.fb.group({      
-      stateid: new FormControl('',Validators.compose(
-        [Validators.required
+      stateid: new FormControl('0',Validators.compose(
+        [Validators.min(1)
         ] )),
       citycode: new FormControl('',Validators.compose([
         Validators.required,
@@ -106,7 +106,21 @@ export class CityEditComponent implements OnInit {
       );
     },1000);
   }
-
+  deleteCity(){
+    if(confirm('are you sure to delete?')){
+      this.spinner.show();
+      setTimeout(()=>{
+        this.cityDataService.deleteById(this.editCity.CityId).subscribe(
+          data=>{
+            this.spinner.hide();
+            this.router.navigate(['home/city/list']); 
+          },err=>{
+            this.spinner.hide();
+          }
+        );
+      },1000);
+    }
+  }
   ngOnInit() {
     this.loadStateLists();
     this.activatedRoute.params.subscribe((params: Params) => {

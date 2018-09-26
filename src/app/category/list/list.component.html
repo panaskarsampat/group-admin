@@ -1,0 +1,84 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+      Category Master
+  </div>
+  <!-- /.panel-heading -->
+  <div class="panel-body alert-info">
+    <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="dataTables_length" id="dataTables-example_length">
+            <p>
+              <button type="button" class="btn btn-outline btn-primary" [routerLink]="['../create']">Create Category
+                <i class="fa fa-map" aria-hidden="true"></i>
+              </button>
+            </p>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div id="dataTables-example_filter" class="dataTables_filter">
+            <div class="input-group custom-search-form pull-right">
+              <form [formGroup]="categoryForm">
+                <input type="text" formControlName='searchtext' style="width: 205px;" class="form-control" placeholder="Search...">
+                <span class="input-group-btn">
+                    <button [disabled]="categoryForm.invalid" class="btn btn-default" type="button" (click)="searchText()">
+                        <i class="fa fa-search"></i>
+                    </button>
+                    <button class="btn btn-default" type="button" (click)="loadList()">
+                            <i class="fa fa-refresh"></i>
+                    </button>
+                </span>
+                <div style="font-size: 10px; color: red;" *ngIf="categoryForm.controls['searchtext'].touched && !categoryForm.controls['searchtext'].valid">
+                    <span *ngIf="categoryForm.controls['searchtext'].hasError('required') ">
+                        Please enter search text.
+                    </span>
+
+                    <span *ngIf="categoryForm.controls['searchtext'].hasError('minlength') ">
+                        Search text min length is 2.
+                    </span>
+                    <span *ngIf="categoryForm.controls['searchtext'].hasError('maxlength') ">
+                        Search text max length is 250.
+                    </span>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+
+        <div class="col-xs-12">
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-hover">
+
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Category Name</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let category of categoryList">
+                            <td scope="row">
+                                    <button [routerLink]="['../edit',category.CompanyCategoryId]" type="button" class="btn btn-outline btn-info">Edit
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    {{category.CompanyCategory}}
+                                </td>                              
+                      </tr>
+                    </tbody>
+                    <!-- <tfoot>
+                      <tr>
+                        <td colspan="5" class="text-center"></td>
+                      </tr>
+                    </tfoot> -->
+                </table>
+            </div><!--end of .table-responsive-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

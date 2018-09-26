@@ -9,15 +9,12 @@
         <div class="col-lg-6">                            
           
           <div class="form-group">
-            <label for="sel1">Select Country:</label>
+            <label for="sel1">Select Country</label>
               <select id="sel1" class="form-control" formControlName='countryid' [(ngModel)]="stateForm.value.countryid" (ngModelChange)='onCountrySelect($event)'>
                   <option value=0>{{ 'select Country' | uppercase}}</option>
                 <option *ngFor="let country of countryList" [value]="country.CountryId">{{ country.CountryName | uppercase}}</option>
               </select>
-              <div style="font-size: 10px; color: red;" *ngIf="(stateForm.controls['statecode'].touched || stateForm.controls['statecode'].dirty) && !stateForm.controls['statecode'].valid">                                                                          
-              <span *ngIf="stateForm.controls['countryid'].hasError('required') ">  
-                Please select country.
-              </span>  
+              <div style="font-size: 10px; color: red;" *ngIf="(stateForm.controls['statecode'].touched || stateForm.controls['statecode'].dirty) && !stateForm.controls['statecode'].valid">
               <span *ngIf="stateForm.controls['countryid'].hasError('min') ">  
                   Please select country. 
               </span>          
@@ -32,7 +29,7 @@
                   Please enter state code.
                 </span> 
                 <span *ngIf="stateForm.controls['statecode'].hasError('minlength') ">  
-                    State code min length is 3.  
+                  State code min length is 3.  
                 </span>  
                 <span *ngIf="stateForm.controls['statecode'].hasError('maxlength') ">  
                   State code max length is 3.  
@@ -51,7 +48,7 @@
                     State name min length is 3.  
                 </span>  
                 <span *ngIf="stateForm.controls['statename'].hasError('maxlength') ">  
-                  State name max length is 256.  
+                  State name max length is 250.  
                </span>                                                                                                                       
             </div>
           </div>

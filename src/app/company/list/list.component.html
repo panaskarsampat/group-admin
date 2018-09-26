@@ -1,3 +1,96 @@
-<p>
-  list works!
-</p>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+      Company Master
+  </div>
+  <!-- /.panel-heading -->
+  <div class="panel-body alert-info">
+    <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="dataTables_length" id="dataTables-example_length">
+            <p>
+              <button type="button" class="btn btn-outline btn-primary" [routerLink]="['../create']">Create Company
+                <i class="fa fa-map" aria-hidden="true"></i>
+              </button>
+            </p>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div id="dataTables-example_filter" class="dataTables_filter">
+            <div class="input-group custom-search-form pull-right">
+              <form [formGroup]="companyForm">
+                <input type="text" formControlName='searchtext' style="width: 205px;" class="form-control" placeholder="Search...">
+                <span class="input-group-btn">
+                    <button [disabled]="companyForm.invalid" class="btn btn-default" type="button" (click)="searchText()">
+                        <i class="fa fa-search"></i>
+                    </button>
+                    <button class="btn btn-default" type="button" (click)="loadList()">
+                            <i class="fa fa-refresh"></i>
+                    </button>
+                </span>
+                <div style="font-size: 10px; color: red;" *ngIf="companyForm.controls['searchtext'].touched && !companyForm.controls['searchtext'].valid">
+                    <span *ngIf="companyForm.controls['searchtext'].hasError('required') ">
+                        Please enter search text.
+                    </span>
+
+                    <span *ngIf="companyForm.controls['searchtext'].hasError('minlength') ">
+                        Search text min length is 2.
+                    </span>
+                    <span *ngIf="companyForm.controls['searchtext'].hasError('maxlength') ">
+                        Search text max length is 250.
+                    </span>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+
+        <div class="col-xs-12">
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-hover">
+
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Company Code</th>
+                        <th>Company Name</th>                        
+                        <th>Company Address</th>
+                        <th>Status</th>                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let company of companyList">
+                            <td scope="row">
+                                    <button [routerLink]="['../edit',company.CompanyId]" type="button" class="btn btn-outline btn-info">Edit
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                                <td>                                   
+                                    {{company.CompanyCode}}
+                              </td>
+                                <td>
+                                    {{company.CompanyName}}
+                                </td>
+                                <td>
+                                    {{company.CompanyAddress}}
+                                </td>
+                                <td>
+                                    {{company.IsActive}}
+                                </td>                                
+                      </tr>
+                    </tbody>
+                    <!-- <tfoot>
+                      <tr>
+                        <td colspan="5" class="text-center"></td>
+                      </tr>
+                    </tfoot> -->
+                </table>
+            </div><!--end of .table-responsive-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

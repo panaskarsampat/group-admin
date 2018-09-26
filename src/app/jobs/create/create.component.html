@@ -1,3 +1,274 @@
-<p>
-  create works!
-</p>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Create Jobs
+    </div>
+    <form [formGroup]="jobForm">
+    <div class="panel-body alert-info">
+      <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label for="sel1">Select Country</label>
+                <select id="sel1" class="form-control" formControlName='locationCountryId' [(ngModel)]="jobForm.value.locationCountryId" (ngModelChange)='onCountrySelect($event)'>
+                  <option [value]="0">Select Country</option>
+                  <option *ngFor="let country of countryList" [value]="country.CountryId">{{ country.CountryName | uppercase}}</option>
+                </select>
+                <div style="font-size: 10px; color: red;" *ngIf="(jobForm.controls['locationCountryId'].touched || jobForm.controls['locationCountryId'].dirty) && !jobForm.controls['locationCountryId'].valid">                                                                                           
+                    <span *ngIf="jobForm.controls['locationCountryId'].hasError('min') ">  
+                        Please select Country.  
+                    </span>                                                                                                                        
+                </div>
+              </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label for="sel1">Select State</label>
+                <select id="sel1" class="form-control" formControlName='locationStateId' [(ngModel)]="jobForm.value.locationStateId" (ngModelChange)='onStateSelect($event)'>
+                  <option [value]="0">Select state</option>
+                  <option *ngFor="let state of stateList" [value]="state.StateId">{{ state.StateName | uppercase}}</option>
+                </select>
+                <div style="font-size: 10px; color: red;" *ngIf="(jobForm.controls['locationStateId'].touched || jobForm.controls['locationStateId'].dirty) && !jobForm.controls['locationStateId'].valid">                                                                          
+                    <span *ngIf="jobForm.controls['locationStateId'].hasError('min') ">  
+                        Please select state.  
+                    </span>                                                                      
+                </div>
+              </div>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-lg-6">
+              <div class="form-group">
+                  <label for="sel1">Select City</label>
+                  <select id="sel1" class="form-control" formControlName='locationCityId' [(ngModel)]="jobForm.value.locationCityId" (ngModelChange)='onCitySelect($event)'>
+                    <option [value]="0">Select City</option>
+                    <option *ngFor="let city of cityList" [value]="city.CityId">{{ city.CityName | uppercase}}</option>
+                  </select>
+                  <div style="font-size: 10px; color: red;" *ngIf="(jobForm.controls['locationCityId'].touched || jobForm.controls['locationCityId'].dirty) && !jobForm.controls['locationCityId'].valid">                                                                          
+                      <span *ngIf="jobForm.controls['locationCityId'].hasError('min') ">  
+                          Please select city.  
+                      </span>                                                                                                        
+                  </div>
+                </div>
+          </div>
+          <div class="col-lg-6">
+              <div class="form-group">
+                  <label for="sel1">Select company</label>
+                  <select id="sel1" class="form-control" formControlName='companyId' [(ngModel)]="jobForm.value.companyId" (ngModelChange)='onCompanySelect($event)'>
+                    <option [value]="0">Select Company:</option>
+                    <option *ngFor="let company of companyList" [value]="company.CompanyId">{{ company.CompanyName | uppercase}}</option>
+                  </select>
+                  <div style="font-size: 10px; color: red;" *ngIf="(jobForm.controls['companyId'].touched || jobForm.controls['companyId'].dirty) && !jobForm.controls['companyId'].valid">                                                                          
+                      <span *ngIf="jobForm.controls['companyId'].hasError('min') ">  
+                          Please select company.  
+                      </span>                                                                 
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-lg-6">
+              <div class="form-group">
+                  <label for="sel1">Select Position</label>
+                  <select id="sel1" class="form-control" formControlName='positionId' [(ngModel)]="jobForm.value.positionId" (ngModelChange)='onPositionSelect($event)'>
+                    <option [value]="0">Select Position</option>
+                    <option *ngFor="let position of positionList" [value]="position.PositionId">{{ position.PositionName | uppercase}}</option>
+                  </select>
+                  <div style="font-size: 10px; color: red;" *ngIf="(jobForm.controls['positionId'].touched || jobForm.controls['positionId'].dirty) && !jobForm.controls['positionId'].valid">                                                                          
+                      <span *ngIf="jobForm.controls['positionId'].hasError('min') ">  
+                          Please select position.  
+                      </span>                                                                                                                   
+                  </div>
+                </div>
+          </div>
+          <div class="col-lg-6">
+              <div class="form-group">
+                  <label for="sel1">Select Work</label>
+                  <select id="sel1" class="form-control" formControlName='workId' [(ngModel)]="jobForm.value.workId" (ngModelChange)='onWorkSelect($event)'>
+                    <option [value]="0">Select work</option>
+                    <option *ngFor="let work of workList" [value]="work.WorkId">{{ work.WorkName | uppercase}}</option>
+                  </select>
+                  <div style="font-size: 10px; color: red;" *ngIf="(jobForm.controls['workId'].touched || jobForm.controls['workId'].dirty) && !jobForm.controls['workId'].valid">                                                                          
+                      <span *ngIf="jobForm.controls['workId'].hasError('min') ">  
+                        Please select work.   
+                      </span>                                                                     
+                  </div>
+                </div>
+          </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label>Job Code</label>
+                <input class="form-control" formControlName='jobCode' placeholder="job code" [(ngModel)]="jobForm.value.jobCode" uppercase>
+                <div style="font-size: 10px; color: red;" *ngIf="(jobForm.controls['jobCode'].touched || jobForm.controls['jobCode'].dirty) && !jobForm.controls['jobCode'].valid">                                                                          
+                    <span *ngIf="jobForm.controls['jobCode'].hasError('required') ">  
+                      Please enter job code.
+                    </span> 
+                    <span *ngIf="jobForm.controls['jobCode'].hasError('minlength') ">  
+                      Job code min length is 3.  
+                    </span>  
+                    <span *ngIf="jobForm.controls['jobCode'].hasError('maxlength') ">  
+                      Job code max length is 8.  
+                    </span>                                                                                                                       
+                </div>
+              </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label>Job Name</label>
+                <input class="form-control" formControlName='jobName' placeholder="Job Name" [(ngModel)]="jobForm.value.jobName" uppercase>
+                <div style="font-size: 10px; color: red;" *ngIf="(jobForm.controls['jobName'].touched || jobForm.controls['jobName'].dirty) && !jobForm.controls['jobName'].valid">                                                                          
+                    <span *ngIf="jobForm.controls['jobName'].hasError('required') ">  
+                      Please enter Job Name.
+                    </span> 
+                    <span *ngIf="jobForm.controls['jobName'].hasError('minlength') ">  
+                      Job name min length is 3.  
+                    </span>  
+                    <span *ngIf="jobForm.controls['jobName'].hasError('maxlength') ">  
+                      Job name max length is 100.  
+                    </span>                                                                                                                       
+                </div>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-lg-6">
+              <div class="form-group">
+                  <label>Job Title</label>
+                  <input class="form-control" formControlName='jobTitle' placeholder="Job title" [(ngModel)]="jobForm.value.jobTitle" uppercase>
+                  <div style="font-size: 10px; color: red;" *ngIf="(jobForm.controls['jobTitle'].touched || jobForm.controls['jobTitle'].dirty) && !jobForm.controls['jobTitle'].valid">                                                                          
+                      <span *ngIf="jobForm.controls['jobTitle'].hasError('required') ">  
+                        Please enter job title.
+                      </span> 
+                      <span *ngIf="jobForm.controls['jobTitle'].hasError('minlength') ">  
+                        Job title min length is 3.  
+                      </span>  
+                      <span *ngIf="jobForm.controls['jobTitle'].hasError('maxlength') ">  
+                        Job title max length is 50.  
+                      </span>                                                                                                                       
+                  </div>
+                </div>
+          </div>
+          <div class="col-lg-6">
+              <div class="form-group">
+                  <label>Contact Person</label>
+                  <input class="form-control" formControlName='contactPerson' placeholder="Contact Person" [(ngModel)]="jobForm.value.contactPerson" uppercase>
+                  <div style="font-size: 10px; color: red;" *ngIf="(jobForm.controls['contactPerson'].touched || jobForm.controls['contactPerson'].dirty) && !jobForm.controls['contactPerson'].valid">                                                                          
+                      <span *ngIf="jobForm.controls['contactPerson'].hasError('required') ">  
+                        Please enter contact person.
+                      </span> 
+                      <span *ngIf="jobForm.controls['contactPerson'].hasError('minlength') ">  
+                        Contact person min length is 10.  
+                      </span>  
+                      <span *ngIf="jobForm.controls['contactPerson'].hasError('maxlength') ">  
+                        Contact person max length is 250.  
+                      </span>                                                                                                                       
+                  </div>
+                </div>
+            </div>
+      </div>
+      <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>Work Experience</label>
+                    <input class="form-control" formControlName='workExp' placeholder="work experience" [(ngModel)]="jobForm.value.workExp" uppercase>
+                    <div style="font-size: 10px; color: red;" *ngIf="(jobForm.controls['workExp'].touched || jobForm.controls['workExp'].dirty) && !jobForm.controls['workExp'].valid">                                                                          
+                        <span *ngIf="jobForm.controls['workExp'].hasError('required') ">  
+                          Please enter work experience.
+                        </span> 
+                        <span *ngIf="jobForm.controls['workExp'].hasError('minlength') ">  
+                          Work experience min length is 1.  
+                        </span>  
+                        <span *ngIf="jobForm.controls['workExp'].hasError('maxlength') ">  
+                          Work experience max length is 2.  
+                        </span>                                                                                                                       
+                    </div>
+                  </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>Work Skills</label>
+                    <input class="form-control" formControlName='workSkills' placeholder="Work Skills" [(ngModel)]="jobForm.value.workSkills" uppercase>
+                    <div style="font-size: 10px; color: red;" *ngIf="(jobForm.controls['workSkills'].touched || jobForm.controls['workSkills'].dirty) && !jobForm.controls['workSkills'].valid">                                                                          
+                        <span *ngIf="jobForm.controls['workSkills'].hasError('required') ">  
+                          Please enter work skills.
+                        </span> 
+                        <span *ngIf="jobForm.controls['workSkills'].hasError('minlength') ">  
+                          Work skills min length is 5.  
+                        </span>  
+                        <span *ngIf="jobForm.controls['workSkills'].hasError('maxlength') ">  
+                          Work skills max length is 512.  
+                        </span>                                                                                                                       
+                    </div>
+                  </div>
+              </div>
+      </div>
+      <div class="row">      
+          <div class="col-lg-6">
+        <div class="form-group">
+          <label>Postal Code</label>
+          <input class="form-control" formControlName='postalCode' placeholder="postal code" [(ngModel)]="jobForm.value.postalCode" uppercase>
+          <div style="font-size: 10px; color: red;" *ngIf="(jobForm.controls['postalCode'].touched || jobForm.controls['postalCode'].dirty) && !jobForm.controls['postalCode'].valid">                                                                          
+            <span *ngIf="jobForm.controls['postalCode'].hasError('required') ">  
+              Please enter postal code.
+            </span> 
+            <span *ngIf="jobForm.controls['postalCode'].hasError('minlength') ">  
+              Postal code min length is 6.  
+            </span>  
+            <span *ngIf="jobForm.controls['postalCode'].hasError('maxlength') ">  
+              Postal code max length is 6.  
+            </span>                                                                                                                       
+          </div>
+         </div>
+        </div>          
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+            <label>Job Description</label>
+          <textarea [(ngModel)]="jobForm.value.jobDesc" class="form-control" rows='5' formControlName='jobDesc'></textarea>
+          <div style="font-size: 10px; color: red;" *ngIf="(jobForm.controls['jobDesc'].touched || jobForm.controls['jobDesc'].dirty) && !jobForm.controls['jobDesc'].valid">                                                                          
+              <span *ngIf="jobForm.controls['jobDesc'].hasError('required') ">  
+                Please enter description about job.
+              </span> 
+              <span *ngIf="jobForm.controls['jobDesc'].hasError('minlength') ">  
+                Min length of job description is 20.  
+              </span>                                                                                                                        
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">  
+        <div class="toggle-panel" *ngIf="show" [hidden]="hidden">
+            <input class="form-control" formControlName='modifiedBy'  [(ngModel)]="jobForm.value.modifiedBy" >
+            <input class="form-control" formControlName='modifiedDateTime'  [(ngModel)]="jobForm.value.modifiedDateTime" >
+            <input class="form-control" formControlName='createdBy'  [(ngModel)]="jobForm.value.createdBy" >
+            <input class="form-control" formControlName='createdDateTime'  [(ngModel)]="jobForm.value.createdDateTime" >
+        </div>        
+  
+          <div class="form-group">
+            <div class="col-lg-4">
+                <div class="checkbox">
+                    <label>
+                      <input type="checkbox" formControlName="isActive" value="">Active
+                    </label>
+                </div>
+            </div>
+          </div>                            
+          
+      </div>
+                            
+    </div>
+    <div class="panel-footer">
+        <button type="button" class="btn btn-outline btn-success" [disabled]="jobForm.invalid" (click)="saveJob()">Update
+          <i class="fa fa-save"></i>
+        </button>
+        &nbsp;
+        &nbsp;
+        <button type="button" class="btn btn-outline btn-info" [routerLink]="['../../list']">Back
+          <i class="fa fa-backward"></i>
+        </button>
+        
+    </div>
+  </form>
+  </div>
+  
+  
