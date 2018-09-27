@@ -34,7 +34,6 @@ export class WorkCreateComponent implements OnInit {
     var a;
     this.spinner.show();
     setTimeout(() => {
-      debugger;
       this.createWork.WorkName = this.workForm.value.workname;
       this.workDataService.createWork(this.createWork).subscribe(
         data => {

@@ -17,7 +17,6 @@ export class PositionService {
   constructor(private http:HttpClient, private _http: Http) { }
 
   createRow(entity:PositionModels){
-    debugger;
     this._requestOption = new RequestOptions({method:RequestMethod.Post, headers: this._headers});
     var body = {
       PositionId:entity.PositionId,

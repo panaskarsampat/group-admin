@@ -10,41 +10,40 @@ import { environment } from '../../environments/environment.prod';
 })
 export class WorkService {
 
-  private workUrl = environment.ROOT_URL+'work/';  // URL to web API
+  private workUrl = environment.ROOT_URL + 'work/';  // URL to web API
   private _headers = new Headers({'Content-Type': 'application/json'});
-  private _requestOption:RequestOptions;
-  constructor(private http:HttpClient, private _http: Http) { }
+  private _requestOption: RequestOptions;
+  constructor(private http: HttpClient, private _http: Http) { }
 
-  createWork(workEntity:WorkModels) {
-    debugger;
-    this._requestOption = new RequestOptions({method:RequestMethod.Post, headers: this._headers});
-    let body = {
-      WorkId:workEntity.WorkId,
-      WorkName:workEntity.WorkName,
+  createWork(workEntity: WorkModels) {
+    this._requestOption = new RequestOptions({method: RequestMethod.Post, headers: this._headers});
+    const body = {
+      WorkId: workEntity.WorkId,
+      WorkName: workEntity.WorkName,
 
     };
     return this._http.post(this.workUrl, JSON.stringify(body), this._requestOption).pipe(
-      map(x=>x.json()));
+      map(x => x.json()));
   }
-  updateWork(workEntity:WorkModels) {
-    this._requestOption = new RequestOptions({method:RequestMethod.Put, headers: this._headers});
-    let id = workEntity.WorkId;
-    return this._http.put(this.workUrl+id,JSON.stringify(workEntity), this._requestOption).pipe(
-    map(x=>x.json()));
+  updateWork(workEntity: WorkModels) {
+    this._requestOption = new RequestOptions({method: RequestMethod.Put, headers: this._headers});
+    const id = workEntity.WorkId;
+    return this._http.put(this.workUrl + id, JSON.stringify(workEntity), this._requestOption).pipe(
+    map(x => x.json()));
   }
-  deleteWorkById(id:number) {
-    this._requestOption = new RequestOptions({method:RequestMethod.Put, headers: this._headers});
+  deleteWorkById(id: number) {
+    this._requestOption = new RequestOptions({method: RequestMethod.Put, headers: this._headers});
 
-    return this._http.delete(this.workUrl+id).pipe(
-    map(x=>x.json()));
+    return this._http.delete(this.workUrl + id).pipe(
+    map(x => x.json()));
   }
 
   getWorkById(Id) {
-    return this.http.get<WorkModels>(environment.ROOT_URL+'work/'+ Id);
+    return this.http.get<WorkModels>(environment.ROOT_URL + 'work/' + Id);
   }
 
   getAllWorks() {
-    return this.http.get<WorkModels[]>(environment.ROOT_URL+'work/');
+    return this.http.get<WorkModels[]>(environment.ROOT_URL + 'work/');
   }
 
 }

@@ -17,7 +17,6 @@ export class StateService {
   constructor(private http:HttpClient, private _http: Http) { }
 
   createRow(stateEntity:StateModels){
-    debugger;
     this._requestOption = new RequestOptions({method:RequestMethod.Post, headers: this._headers});
     var body = {
       CountryId:stateEntity.CountryId,

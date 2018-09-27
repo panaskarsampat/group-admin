@@ -252,7 +252,6 @@ export class JobsEditComponent implements OnInit {
   updateJob(){
     this.spinner.show();
     setTimeout(()=>{
-      debugger;
       this.jobEntity.JobCode = this.jobForm.value.jobCode;
       this.jobEntity.JobName = this.jobForm.value.jobName;
       this.jobEntity.JobTitle = this.jobForm.value.jobTitle;

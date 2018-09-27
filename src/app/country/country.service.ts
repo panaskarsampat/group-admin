@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';  
+import { HttpClient } from '@angular/common/http';
 import { RequestOptions, RequestMethod, Headers, Http } from '@angular/http';
 import { map } from 'rxjs/operators';
 
@@ -17,7 +17,6 @@ export class CountryService {
   constructor(private http:HttpClient, private _http: Http) { }
 
   createRow(countryEntity:CountryModels){
-    debugger;
     this._requestOption = new RequestOptions({method:RequestMethod.Post, headers: this._headers});
     var body = {
       CountryCode:countryEntity.CountryCode,

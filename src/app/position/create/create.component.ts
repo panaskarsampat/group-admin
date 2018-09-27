@@ -29,7 +29,6 @@ export class PositionCreateComponent implements OnInit {
   save(){
     this.spinner.show();
     setTimeout(()=>{
-      debugger;
       this.entity.PositionName = this.positionForm.value.positionName;
       
       this.dataService.createRow(this.entity).subscribe(

@@ -28,7 +28,6 @@ export class TypeCreateComponent implements OnInit {
   saveType(){
     this.spinner.show();
     setTimeout(()=>{
-      debugger;
       this.typeEntity.CompanyType = this.typeForm.value.companytype;
       
       this.dataService.createRow(this.typeEntity).subscribe(

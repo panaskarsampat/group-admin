@@ -39,7 +39,6 @@ export class TypeListComponent implements OnInit {
     setTimeout(()=>{
       this.dataService.getAll().subscribe(        
         data=>{
-          debugger;
           this.typeList=data;
           this.spinner.hide();
         },

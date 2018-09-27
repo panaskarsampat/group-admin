@@ -17,7 +17,6 @@ export class TypeService {
   constructor(private http:HttpClient, private _http: Http) { }
   
   createRow(typeEntity:Type){
-    debugger;
     this._requestOption = new RequestOptions({method:RequestMethod.Post, headers: this._headers});
     var body = {
       CompanyTypeId:typeEntity.CompanyTypeId,

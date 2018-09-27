@@ -22,87 +22,89 @@ import { CompanyModels } from './../company-models';
   styleUrls: ['./edit.component.css']
 })
 export class CompanyEditComponent implements OnInit {
-  companyForm:FormGroup;
-  isUpdating:boolean;
-  companyEntity:CompanyModels;
-  
-  typeList:Type[];
-  selectedType:number;
+  companyForm: FormGroup;
+  isUpdating: boolean;
+  companyEntity: CompanyModels;
 
-  categoryList:Category[];
-  selectedCategory:number;
+  typeList: Type[];
+  selectedType: number;
 
-  countryList:CountryModels[];
-  selectedCountry:number;
+  categoryList: Category[];
+  selectedCategory: number;
 
-  stateList:StateModels[];
-  selectedState:number;
-  
-  cityList:CityModels[];
-  selectedCity:number;
+  countryList: CountryModels[];
+  selectedCountry: number;
 
-  constructor(private router:Router, private spinner:NgxSpinnerService, private activatedRoute:ActivatedRoute, private fb:FormBuilder, private stateService: StateService, private countryService: CountryService, private CityService: CityService, private categoryService: CategoryService,private typeService : TypeService, private companyService : CompanyService) {
-    this.companyForm  = this.fb.group({      
-      companyTypeId: new FormControl(0,Validators.compose([
+  stateList: StateModels[];
+  selectedState: number;
+
+  cityList: CityModels[];
+  selectedCity: number;
+
+  constructor(private router: Router, private spinner: NgxSpinnerService, private activatedRoute: ActivatedRoute, private fb: FormBuilder,
+    private stateService: StateService, private countryService: CountryService, private CityService: CityService,
+    private categoryService: CategoryService, private typeService: TypeService, private companyService: CompanyService) {
+    this.companyForm  = this.fb.group({
+      companyTypeId: new FormControl(0, Validators.compose([
         Validators.min(1)
       ])),
-      companyCategoryId: new FormControl(0,Validators.compose([
+      companyCategoryId: new FormControl(0, Validators.compose([
         Validators.min(1)
       ])),
-      countryId: new FormControl(0,Validators.compose([
+      countryId: new FormControl(0, Validators.compose([
         Validators.min(1)
       ])),
-      stateId: new FormControl(0,Validators.compose([
+      stateId: new FormControl(0, Validators.compose([
         Validators.min(1)
       ])),
-      cityId: new FormControl(0,Validators.compose([
+      cityId: new FormControl(0, Validators.compose([
         Validators.min(1)
       ])),
-      
-      companyCode: new FormControl('',Validators.compose([
+
+      companyCode: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(8)
       ])),
-      companyName: new FormControl('',Validators.compose([
+      companyName: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(50)
       ])),
-      aboutCompany: new FormControl('',Validators.compose([
+      aboutCompany: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(20)
       ])),
-      companyAddress: new FormControl('',Validators.compose([
+      companyAddress: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(10),
         Validators.maxLength(250)
       ])),
-      emailId: new FormControl('',Validators.compose([
+      emailId: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(8),
         Validators.maxLength(250)
       ])),
-      mailId: new FormControl('',Validators.compose([
+      mailId: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(5),
         Validators.maxLength(250)
       ])),
-      phoneNumber1: new FormControl('',Validators.compose([
+      phoneNumber1: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(10),
         Validators.maxLength(25)
       ])),
-      phoneNumber2: new FormControl('',Validators.compose([    
+      phoneNumber2: new FormControl('', Validators.compose([
         Validators.minLength(10),
         Validators.maxLength(25)
       ])),
-      postalCode: new FormControl('',Validators.compose([
+      postalCode: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(6),
         Validators.maxLength(6)
       ])),
-      siteId: new FormControl('',Validators.compose([
+      siteId: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(8),
         Validators.maxLength(250)
@@ -121,117 +123,116 @@ export class CompanyEditComponent implements OnInit {
     })
   }
 
-  loadTypeLists(){
+  loadTypeLists() {
     this.spinner.show();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.typeService.getAll().subscribe(
-        data=>{
-          this.typeList=data;
+        data => {
+          this.typeList = data;
           this.spinner.hide();
         },
-        err=>{
+        err => {
           console.log(err);
           this.spinner.hide();
         }
       );
-    },1000);
+    }, 1000);
   }
-  loadCategoryLists(){
+  loadCategoryLists() {
     this.spinner.show();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.categoryService.getAll().subscribe(
-        data=>{
-          this.categoryList=data;
+        data => {
+          this.categoryList = data;
           this.spinner.hide();
         },
-        err=>{
+        err => {
           console.log(err);
           this.spinner.hide();
         }
       );
-    },1000);
+    }, 1000);
   }
-  loadCountryLists(){
+  loadCountryLists() {
     this.spinner.show();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.countryService.getAll().subscribe(
-        data=>{
-          this.countryList=data;
+        data => {
+          this.countryList = data;
           this.spinner.hide();
         },
-        err=>{
+        err => {
           console.log(err);
           this.spinner.hide();
         }
       );
-    },1000);
+    }, 1000);
   }
-  loadStateLists(){
+  loadStateLists() {
     this.spinner.show();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.stateService.getAll().subscribe(
-        data=>{
-          this.stateList=data;
+        data => {
+          this.stateList = data;
           this.spinner.hide();
         },
-        err=>{
+        err => {
           console.log(err);
           this.spinner.hide();
         }
       );
-    },1000);
+    }, 1000);
   }
-  loadCityLists(){
+  loadCityLists() {
     this.spinner.show();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.CityService.getAll().subscribe(
-        data=>{
-          this.cityList=data;
+        data => {
+          this.cityList = data;
           this.spinner.hide();
         },
-        err=>{
+        err => {
           console.log(err);
           this.spinner.hide();
         }
       );
-    },1000);
+    }, 1000);
   }
-  
-  loadById(id){
+
+  loadById(id) {
     this.spinner.show();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.companyService.getById(id).subscribe(
-        data=>{
-          this.companyEntity=data;
+        data => {
+          this.companyEntity = data;
           this.setValues();
           this.spinner.hide();
         },
-        err=>{
+        err => {
           console.log(err);
           this.spinner.hide();
         }
       );
-    },1000);
+    }, 1000);
   }
-  deleteCompany(){
-    if(confirm('are you sure to delete?')){
+  deleteCompany() {
+    if (confirm('are you sure to delete?')) {
       this.spinner.show();
-      setTimeout(()=>{
+      setTimeout(() => {
         this.companyService.deleteById(this.companyEntity.CompanyId).subscribe(
-          data=>{
+          data => {
             this.spinner.hide();
-            this.router.navigate(['home/company/list']); 
-          },err=>{
+            this.router.navigate(['home/company/list']);
+          }, err => {
             this.spinner.hide();
           }
         );
-      },1000);
+      }, 1000);
     }
   }
-  updateCompany(){
+  updateCompany() {
     this.spinner.show();
-    setTimeout(()=>{
-      debugger;
+    setTimeout(() => {
       this.companyEntity.CompanyCode = this.companyForm.value.companyCode;
       this.companyEntity.CompanyName = this.companyForm.value.companyName;
       this.companyEntity.AboutCompany = this.companyForm.value.aboutCompany;
@@ -252,69 +253,66 @@ export class CompanyEditComponent implements OnInit {
       this.companyEntity.CreatedBy = this.companyForm.value.createdBy;
       this.companyEntity.CreatedDateTime = this.companyForm.value.createdDateTime;
       this.companyEntity.IsActive = this.companyForm.value.isActive;
-      
+
       this.companyService.updateRow(this.companyEntity).subscribe(
-        data=>{
+        data => {
           this.spinner.hide();
-          this.router.navigate(['home/company/list']); 
+          this.router.navigate(['home/company/list']);
         },
-        err=>{
+        err => {
           console.log(err);
           this.spinner.hide();
         }
       );
-    },1000);
+    }, 1000);
   }
 
-  setValues(){
+  setValues() {
     this.companyForm.setValue({
-      companyCode:this.companyEntity.CompanyCode,
-      companyName:this.companyEntity.CompanyName,
-      aboutCompany:this.companyEntity.AboutCompany,
-      companyAddress:this.companyEntity.CompanyAddress,
-      emailId:this.companyEntity.EmailId,
-      mailId:this.companyEntity.MailId,
-      phoneNumber1:this.companyEntity.PhoneNumber1,
-      phoneNumber2:this.companyEntity.PhoneNumber2,
-      postalCode:this.companyEntity.PostalCode,
-      siteId:this.companyEntity.SiteId,
-      companyTypeId:this.companyEntity.CompanyTypeId,
-      companyCategoryId:this.companyEntity.CompanyCategoryId,
-      countryId:this.companyEntity.CountryId,
-      stateId:this.companyEntity.StateId,
-      cityId:this.companyEntity.CityId,
-      modifiedBy:this.companyEntity.ModifiedBy,
-      modifiedDateTime:this.companyEntity.ModifiedDateTime,
-      createdBy:this.companyEntity.CreatedBy,
-      createdDateTime:this.companyEntity.CreatedDateTime,
-      isActive:this.companyEntity.IsActive,
+      companyCode: this.companyEntity.CompanyCode,
+      companyName: this.companyEntity.CompanyName,
+      aboutCompany: this.companyEntity.AboutCompany,
+      companyAddress: this.companyEntity.CompanyAddress,
+      emailId: this.companyEntity.EmailId,
+      mailId: this.companyEntity.MailId,
+      phoneNumber1: this.companyEntity.PhoneNumber1,
+      phoneNumber2: this.companyEntity.PhoneNumber2,
+      postalCode: this.companyEntity.PostalCode,
+      siteId: this.companyEntity.SiteId,
+      companyTypeId: this.companyEntity.CompanyTypeId,
+      companyCategoryId: this.companyEntity.CompanyCategoryId,
+      countryId: this.companyEntity.CountryId,
+      stateId: this.companyEntity.StateId,
+      cityId: this.companyEntity.CityId,
+      modifiedBy: this.companyEntity.ModifiedBy,
+      modifiedDateTime: this.companyEntity.ModifiedDateTime,
+      createdBy: this.companyEntity.CreatedBy,
+      createdDateTime: this.companyEntity.CreatedDateTime,
+      isActive: this.companyEntity.IsActive,
     });
   }
-  
-  onTypeSelect(val:any){
+  onTypeSelect(val: any) {
     this.selectedType = val;
   }
-  onCategorySelect(val:any){
+  onCategorySelect(val: any) {
     this.selectedCategory = val;
   }
-  onCountrySelect(val:any){
+  onCountrySelect(val: any) {
     this.selectedCountry = val;
   }
-  onStateSelect(val:any){
+  onStateSelect(val: any) {
     this.selectedState = val;
   }
-  onCitySelect(val:any){
+  onCitySelect(val: any) {
     this.selectedCity = val;
   }
 
   ngOnInit() {
-    
+
     this.activatedRoute.params.subscribe((params: Params) => {
-      let id = params['id'];      
-      
-      this.loadById(id);       
+      const id = params['id'];
+      this.loadById(id);
     });
-    
     this.loadTypeLists();
     this.loadCategoryLists();
     this.loadCountryLists();

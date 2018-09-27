@@ -34,7 +34,6 @@ export class CountryCreateComponent implements OnInit {
   saveCountry(){
     this.spinner.show();
     setTimeout(()=>{
-      debugger;
       this.createCountry.CountryCode = this.countryForm.value.countrycode;
       this.createCountry.CountryName = this.countryForm.value.countryname;
       this.createCountry.Status = this.countryForm.value.chkActive;

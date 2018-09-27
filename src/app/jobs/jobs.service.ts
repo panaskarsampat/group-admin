@@ -16,7 +16,6 @@ export class JobsService {
   constructor(private http:HttpClient, private _http: Http) { }
 
   createRow(entity:JobsModels){
-    debugger;
     this._requestOption = new RequestOptions({method:RequestMethod.Post, headers: this._headers});
     var body = {
       JobId:entity.JobId,      
