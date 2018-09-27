@@ -8,21 +8,21 @@ import { Subject } from 'rxjs';
 export class UserDataService {
 
   private subject = new Subject<any>();
-    private user :any;
+    private user: any;
     sendData(data: any) {
         this.subject.next(data);
         this.user = data;
     }
- 
+
     clearData() {
         this.subject.next();
     }
- 
+
     getData(): Observable<any> {
         return this.subject.asObservable();
     }
 
-    getUser():any{
-      return this.user;        
+    getUser(): any {
+      return this.user;
     }
 }

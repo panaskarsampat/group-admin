@@ -1,3 +1,89 @@
-<p>
-  create works!
-</p>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+      Create User
+  </div>
+  <!-- /.panel-heading -->
+  <form [formGroup]="userForm">
+  <div class="panel-body alert-info">
+      
+        <div class="col-lg-6">                            
+          <div class="form-group">
+            <label>Email Id</label>
+            <input class="form-control" formControlName='email' placeholder="emailid">
+            <div style="font-size: 10px; color: red;" *ngIf="(userForm.controls['email'].touched || userForm.controls['email'].dirty)  && !userForm.controls['email'].valid">                                                                          
+              <span *ngIf="userForm.controls['email'].hasError('required') ">  
+                Please enter email id.
+              </span>  
+                                  
+              <span *ngIf="userForm.controls['email'].hasError('email') ">  
+                Invalid email id.
+              </span>                                                                                
+            </div>
+          </div>
+              
+          <div class="form-group">
+            <label>Full Name</label>
+            <input class="form-control" formControlName='fullname' placeholder="fullname">
+            <div style="font-size: 10px; color: red;" *ngIf="(userForm.controls['fullname'].touched || userForm.controls['fullname'].dirty) && !userForm.controls['fullname'].valid">                                                                          
+                <span *ngIf="userForm.controls['fullname'].hasError('required') ">  
+                  Please enter user name.
+                </span> 
+                <span *ngIf="userForm.controls['fullname'].hasError('minlength') ">  
+                    User name min length is 6.  
+                </span>  
+                <span *ngIf="userForm.controls['fullname'].hasError('maxlength') ">  
+                  User name max length is 250.  
+               </span>                                                                                                                       
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>User Name</label>
+            <input class="form-control" formControlName='username' placeholder="username">
+            <div style="font-size: 10px; color: red;" *ngIf="(userForm.controls['username'].touched || userForm.controls['username'].dirty) && !userForm.controls['username'].valid">                                                                          
+                <span *ngIf="userForm.controls['username'].hasError('required') ">  
+                  Please enter user name.
+                </span> 
+                <span *ngIf="userForm.controls['username'].hasError('minlength') ">  
+                    User name min length is 6.  
+                </span>  
+                <span *ngIf="userForm.controls['username'].hasError('maxlength') ">  
+                  User name max length is 256.  
+               </span>                                                                                                                       
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input class="form-control" formControlName='phonenumber' placeholder="phonenumber">
+            <div style="font-size: 10px; color: red;" *ngIf="(userForm.controls['phonenumber'].touched || userForm.controls['phonenumber'].dirty) && !userForm.controls['phonenumber'].valid">                                                                          
+                <span *ngIf="userForm.controls['phonenumber'].hasError('required') ">  
+                  Please enter phone number.
+                </span> 
+                <span *ngIf="userForm.controls['phonenumber'].hasError('pattern') ">  
+                    Enter only numbers.
+                </span> 
+                <span *ngIf="userForm.controls['phonenumber'].hasError('minlength') ">  
+                  Phone number min length is 10.  
+                </span>  
+                <span *ngIf="userForm.controls['phonenumber'].hasError('maxlength') ">  
+                  Phone number max length is 10.  
+                </span>                                                                                                                      
+            </div>
+          </div>  
+        
+      </div>
+                    
+  </div>
+  <div class="panel-footer">
+      <button type="button" class="btn btn-outline btn-success" [disabled]="userForm.invalid" (click)="save()">Create User
+        <i class="fa fa-save"></i>
+      </button>
+      &nbsp;
+      <button type="button" class="btn btn-outline btn-info" [routerLink]="['../../list']">Back
+        <i class="fa fa-backward"></i>
+      </button>
+      
+  </div>
+</form>
+</div>
