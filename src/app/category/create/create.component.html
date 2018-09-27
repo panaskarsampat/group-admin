@@ -13,13 +13,13 @@
             <input class="form-control" formControlName='companycategory' placeholder="Category Name" [(ngModel)]="categoryForm.value.companycategory" uppercase>
             <div style="font-size: 10px; color: red;" *ngIf="(categoryForm.controls['companycategory'].touched || categoryForm.controls['companycategory'].dirty) && !categoryForm.controls['companycategory'].valid">                                                                          
                 <span *ngIf="categoryForm.controls['companycategory'].hasError('required') ">  
-                  Please enter country code.
+                  Please enter category.
                 </span> 
                 <span *ngIf="categoryForm.controls['companycategory'].hasError('minlength') ">  
-                    Country code min length is 3.  
+                  Category min length is 3.  
                 </span>  
                 <span *ngIf="categoryForm.controls['companycategory'].hasError('maxlength') ">  
-                  Country code max length is 250.  
+                  Category max length is 250.  
                </span>                                                                                                                       
             </div>
           </div>                                   

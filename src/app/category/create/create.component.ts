@@ -3,7 +3,7 @@ import { Category } from './../category';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params} from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { FormControl,FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormControl, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
 
@@ -13,34 +13,33 @@ import { Router } from '@angular/router';
   styleUrls: ['./create.component.css']
 })
 export class CategoryCreateComponent implements OnInit {
-  categoryForm:FormGroup;
-  constructor(private categoryEntity:Category, private router:Router, private categoryDataService:CategoryService, private fb: FormBuilder, private activatedRoute : ActivatedRoute, private spinner: NgxSpinnerService) {
-    this.categoryForm  = this.fb.group({      
-      companycategory: new FormControl('',Validators.compose([
+  categoryForm: FormGroup;
+  constructor(private categoryEntity: Category, private router: Router, private categoryDataService: CategoryService,
+    private fb: FormBuilder, private activatedRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
+    this.categoryForm  = this.fb.group({
+      companycategory: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(256)
+        Validators.maxLength(250)
       ]))
-    })
+    });
    }
 
-   saveCategory(){
+   saveCategory() {
     this.spinner.show();
-    setTimeout(()=>{
-      debugger;
+    setTimeout(() => {
       this.categoryEntity.CompanyCategory = this.categoryForm.value.companycategory;
-      
       this.categoryDataService.createRow(this.categoryEntity).subscribe(
-        data=>{
+        data => {
           this.spinner.hide();
-          this.router.navigate(['home/category/list']); 
+          this.router.navigate(['home/category/list']);
         },
-        err=>{
+        err => {
           console.log(err);
           this.spinner.hide();
         }
       );
-    },1000);  
+    }, 1000);
   }
 
   ngOnInit() {

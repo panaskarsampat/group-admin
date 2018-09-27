@@ -11,7 +11,7 @@
             <input class="form-control" formControlName='companycategory' placeholder="category name" [(ngModel)]="categoryForm.value.companycategory" uppercase>
             <div style="font-size: 10px; color: red;" *ngIf="(categoryForm.controls['companycategory'].touched || categoryForm.controls['companycategory'].dirty) && !categoryForm.controls['companycategory'].valid">                                                                          
                 <span *ngIf="categoryForm.controls['companycategory'].hasError('required') ">  
-                  Please enter country category.
+                  Please enter category.
                 </span> 
                 <span *ngIf="categoryForm.controls['companycategory'].hasError('minlength') ">  
                     Category name min length is 3.  
