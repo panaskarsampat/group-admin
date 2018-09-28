@@ -32,9 +32,11 @@ export class JobsCreateComponent implements OnInit {
   countryList: CountryModels[];
   selectedCountry: number;
   stateList: StateModels[];
+  nonBindedStateList: StateModels[];
   selectedState: number;
   cityList: CityModels[];
-  selectedCity : number;
+  nonBindedCityList: CityModels[];
+  selectedCity: number;
   companyList: CompanyModels[];
   selectedCompany: number;
   positionList: PositionModels[];
@@ -42,196 +44,225 @@ export class JobsCreateComponent implements OnInit {
   workList: WorkModels[];
   selectedWork: number;
 
-  constructor(private   jobEntity: JobsModels, private router:Router, private spinner:NgxSpinnerService, private activatedRoute:ActivatedRoute, private fb:FormBuilder, private stateService: StateService, private countryService: CountryService, private CityService: CityService, private companyService : CompanyService, private workService: WorkService, private positionService: PositionService, private jobService: JobsService) { 
-    this.jobForm  = this.fb.group({      
-      locationCountryId: new FormControl(0,Validators.compose([
+  constructor(private   jobEntity: JobsModels, private router: Router, private spinner: NgxSpinnerService,
+    private activatedRoute: ActivatedRoute, private fb: FormBuilder, private stateService: StateService,
+    // tslint:disable-next-line:no-shadowed-variable
+    private countryService: CountryService, private CityService: CityService, private companyService: CompanyService,
+    private workService: WorkService, private positionService: PositionService, private jobService: JobsService) {
+    this.jobForm  = this.fb.group({
+      locationCountryId: new FormControl(0, Validators.compose([
         Validators.min(1)
       ])),
-      locationStateId: new FormControl(0,Validators.compose([
+      locationStateId: new FormControl(0, Validators.compose([
         Validators.min(1)
       ])),
-      locationCityId: new FormControl(0,Validators.compose([
+      locationCityId: new FormControl(0, Validators.compose([
         Validators.min(1)
       ])),
-      companyId: new FormControl(0,Validators.compose([
+      companyId: new FormControl(0, Validators.compose([
         Validators.min(1)
       ])),
-      positionId: new FormControl(0,Validators.compose([
+      positionId: new FormControl(0, Validators.compose([
         Validators.min(1)
       ])),
-      workId: new FormControl(0,Validators.compose([
+      workId: new FormControl(0, Validators.compose([
         Validators.min(1)
       ])),
-      
-      jobCode: new FormControl('',Validators.compose([
+
+      jobCode: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(8)
       ])),
-      jobName: new FormControl('',Validators.compose([
+      jobName: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(100)
       ])),
-      jobTitle: new FormControl('',Validators.compose([
+      jobTitle: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(50)
       ])),
-      contactPerson: new FormControl('',Validators.compose([
+      contactPerson: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(10),
         Validators.maxLength(100)
       ])),
-      jobDesc: new FormControl('',Validators.compose([
+      jobDesc: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(20)
       ])),
-      postalCode: new FormControl('',Validators.compose([
+      postalCode: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(6),
         Validators.maxLength(6)
       ])),
-      workExp: new FormControl('',Validators.compose([
+      workExp: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(1),
         Validators.maxLength(2)
       ])),
-      workSkills: new FormControl('',Validators.compose([    
+      workSkills: new FormControl('', Validators.compose([
         Validators.minLength(10),
         Validators.maxLength(512)
       ])),
 
-      createdBy: new FormControl('',Validators.compose([
+      createdBy: new FormControl('', Validators.compose([
       ])),
-      createdDateTime: new FormControl('',Validators.compose([
+      createdDateTime: new FormControl('', Validators.compose([
       ])),
-      modifiedBy: new FormControl('',Validators.compose([
+      modifiedBy: new FormControl('', Validators.compose([
       ])),
-      modifiedDateTime: new FormControl('',Validators.compose([
+      modifiedDateTime: new FormControl('', Validators.compose([
       ])),
-      
-      isActive: new FormControl(),     
-    })
-  }
 
-  loadCityLists(){
+      isActive: new FormControl(),
+    });
+  }
+// modified nonBindedCityList
+  loadCityLists() {
     this.spinner.show();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.CityService.getAll().subscribe(
-        data=>{
-          this.cityList=data;
+        data => {
+          this.nonBindedCityList = data;
           this.spinner.hide();
         },
-        err=>{
+        err => {
           console.log(err);
           this.spinner.hide();
         }
       );
-    },1000);
+    }, 1000);
   }
-  onCitySelect(val:any){
+
+
+
+  onCitySelect(val: any) {
     this.selectedCity = val;
   }
-
-  loadStateLists(){
+// modified nonBindedStateList
+  loadStateLists() {
     this.spinner.show();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.stateService.getAll().subscribe(
-        data=>{
-          this.stateList=data;
+        data => {
+          this.nonBindedStateList = data;
           this.spinner.hide();
         },
-        err=>{
+        err => {
           console.log(err);
           this.spinner.hide();
         }
       );
-    },1000);
-  }
-  onStateSelect(val:any){
-    this.selectedState = val;
+    }, 1000);
   }
 
-  loadCountryLists(){
+    // modified for state
+    onCountrySelect(val: any) {
+      this.spinner.show();
+      setTimeout(() => {
+        this.stateList = this.nonBindedStateList.filter(
+          (item) => {
+            return item.CountryId === Number(val);
+          });
+        this.selectedCountry = val;
+        this.jobForm.value.locationStateId = 0;
+        this.spinner.hide();
+      }, 2000);
+    }
+// modified for city
+  onStateSelect(val: any) {
     this.spinner.show();
-    setTimeout(()=>{
+    setTimeout(() => {
+      this.cityList = this.nonBindedCityList.filter(
+        (item) => {
+          return item.StateId === Number(val);
+        });
+      this.selectedState = val;
+      this.jobForm.value.locationCityId = 0;
+      this.spinner.hide();
+    }, 2000);
+  }
+
+  loadCountryLists() {
+    this.spinner.show();
+    setTimeout(() => {
       this.countryService.getAll().subscribe(
-        data=>{
-          this.countryList=data;
+        data => {
+          this.countryList = data;
           this.spinner.hide();
         },
-        err=>{
+        err => {
           console.log(err);
           this.spinner.hide();
         }
       );
-    },1000);
-  }
-  onCountrySelect(val:any){
-    this.selectedCountry = val;
+    }, 1000);
   }
 
-  loadCompanyLists(){
+
+  loadCompanyLists() {
     this.spinner.show();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.companyService.getAll().subscribe(
-        data=>{
-          this.companyList=data;
+        data => {
+          this.companyList = data;
           this.spinner.hide();
         },
-        err=>{
+        err => {
           console.log(err);
           this.spinner.hide();
         }
       );
-    },1000);
+    }, 1000);
   }
-  onCompanySelect(val:any){
+  onCompanySelect(val: any) {
     this.selectedCompany = val;
   }
 
-  loadPositionLists(){
+  loadPositionLists() {
     this.spinner.show();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.positionService.getAll().subscribe(
-        data=>{
-          this.positionList=data;
+        data => {
+          this.positionList = data;
           this.spinner.hide();
         },
-        err=>{
+        err => {
           console.log(err);
           this.spinner.hide();
         }
       );
-    },1000);
+    }, 1000);
   }
-  onPositionSelect(val:any){
+  onPositionSelect(val: any) {
     this.selectedPosition = val;
   }
 
-  loadworkLists(){
+  loadworkLists() {
     this.spinner.show();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.workService.getAllWorks().subscribe(
-        data=>{
-          this.workList=data;
+        data => {
+          this.workList = data;
           this.spinner.hide();
         },
-        err=>{
+        err => {
           console.log(err);
           this.spinner.hide();
         }
       );
-    },1000);
+    }, 1000);
   }
-  onWorkSelect(val:any){
+  onWorkSelect(val: any) {
     this.selectedWork = val;
   }
 
-  saveJob(){
+  saveJob() {
     this.spinner.show();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.jobEntity.JobCode = this.jobForm.value.jobCode;
       this.jobEntity.JobName = this.jobForm.value.jobName;
       this.jobEntity.JobTitle = this.jobForm.value.jobTitle;
@@ -240,7 +271,7 @@ export class JobsCreateComponent implements OnInit {
       this.jobEntity.PostalCode = this.jobForm.value.postalCode;
       this.jobEntity.WorkExp = this.jobForm.value.workExp;
       this.jobEntity.WorkSkills = this.jobForm.value.workSkills;
-      
+
       this.jobEntity.LocationCountryId = this.selectedCountry;
       this.jobEntity.LocationStateId = this.selectedState;
       this.jobEntity.LocationCityId = this.selectedCity;
@@ -253,25 +284,27 @@ export class JobsCreateComponent implements OnInit {
       this.jobEntity.CreatedBy = this.jobForm.value.createdBy;
       this.jobEntity.CreatedDateTime = this.jobForm.value.createdDateTime;
       this.jobEntity.IsActive = this.jobForm.value.isActive;
-      
+
       this.jobService.createRow(this.jobEntity).subscribe(
-        data=>{
+        data => {
           this.spinner.hide();
-          this.router.navigate(['home/jobs/list']); 
+          this.router.navigate(['home/jobs/list']);
         },
-        err=>{
+        err => {
           console.log(err);
           this.spinner.hide();
         }
       );
-    },1000);
+    }, 1000);
   }
   ngOnInit() {
     this.loadPositionLists();
     this.loadCompanyLists();
+
     this.loadCountryLists();
     this.loadStateLists();
     this.loadCityLists();
+
     this.loadworkLists();
   }
 

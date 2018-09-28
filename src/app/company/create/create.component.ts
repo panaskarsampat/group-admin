@@ -34,12 +34,15 @@ export class CompanyCreateComponent implements OnInit {
   selectedCountry: number;
 
   stateList: StateModels[];
+  nonBindedStateList: StateModels[];
   selectedState: number;
   cityList: CityModels[];
+  nonBindedCityList: CityModels[];
   selectedCity: number;
 
   constructor(private companyEntity: CompanyModels, private router: Router, private spinner: NgxSpinnerService,
     private activatedRoute: ActivatedRoute, private fb: FormBuilder, private stateService: StateService,
+    // tslint:disable-next-line:no-shadowed-variable
     private countryService: CountryService, private CityService: CityService, private categoryService: CategoryService,
     private typeService: TypeService, private companyService: CompanyService) {
     this.companyForm  = this.fb.group({
@@ -126,11 +129,30 @@ export class CompanyCreateComponent implements OnInit {
   onCategorySelect(val: any) {
     this.selectedCategory = val;
   }
+  // modified for state
   onCountrySelect(val: any) {
-    this.selectedCountry = val;
+    this.spinner.show();
+    setTimeout(() => {
+      this.stateList = this.nonBindedStateList.filter(
+        (item) => {
+          return item.CountryId === Number(val);
+        });
+      this.selectedCountry = val;
+      this.companyForm.value.stateId = 0;
+      this.spinner.hide();
+    }, 2000);
   }
   onStateSelect(val: any) {
-    this.selectedState = val;
+    this.spinner.show();
+    setTimeout(() => {
+      this.cityList = this.nonBindedCityList.filter(
+        (item) => {
+          return item.StateId === Number(val);
+        });
+      this.selectedState = val;
+      this.companyForm.value.cityId = 0;
+      this.spinner.hide();
+    }, 2000);
   }
   onCitySelect(val: any) {
     this.selectedCity = val;
@@ -181,12 +203,14 @@ export class CompanyCreateComponent implements OnInit {
       );
     }, 1000);
   }
+
+  // modified for state nonbinded
   loadStateLists() {
     this.spinner.show();
     setTimeout(() => {
       this.stateService.getAll().subscribe(
         data => {
-          this.stateList = data;
+          this.nonBindedStateList = data;
           this.spinner.hide();
         },
         err => {
@@ -196,12 +220,13 @@ export class CompanyCreateComponent implements OnInit {
       );
     }, 1000);
   }
+// modified for city nonbinded
   loadCityLists() {
     this.spinner.show();
     setTimeout(() => {
       this.CityService.getAll().subscribe(
         data => {
-          this.cityList = data;
+          this.nonBindedCityList = data;
           this.spinner.hide();
         },
         err => {

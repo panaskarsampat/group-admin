@@ -94,7 +94,6 @@ export class CityCreateComponent implements OnInit {
     setTimeout(() => {
       this.countryService.getAll().subscribe(
         data => {
-          console.log(data);
           this.countryList = data;
           this.spinner.hide();
         },
@@ -113,7 +112,6 @@ export class CityCreateComponent implements OnInit {
         (item) => {
           return item.CountryId === Number(val);
         });
-      console.log(this.stateList);
       this.selectedCountry = val;
       this.cityForm.value.stateid = 0;
       this.spinner.hide();

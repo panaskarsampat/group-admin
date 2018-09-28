@@ -35,7 +35,7 @@ export class JobsEditComponent implements OnInit {
   stateList: StateModels[];
   selectedState: number;
   cityList: CityModels[];
-  selectedCity : number;
+  selectedCity: number;
   companyList: CompanyModels[];
   selectedCompany: number;
   positionList: PositionModels[];
@@ -43,215 +43,217 @@ export class JobsEditComponent implements OnInit {
   workList: WorkModels[];
   selectedWork: number;
 
-  currentDate:any;
+  currentDate: any;
 
-  constructor(private router:Router, private spinner:NgxSpinnerService, private activatedRoute:ActivatedRoute, private fb:FormBuilder, private stateService: StateService, private countryService: CountryService, private CityService: CityService, private companyService : CompanyService, private workService: WorkService, private positionService: PositionService, private jobService: JobsService) {
-    this.jobForm  = this.fb.group({      
-      locationCountryId: new FormControl(0,Validators.compose([
+  constructor(private router: Router, private spinner: NgxSpinnerService, private activatedRoute: ActivatedRoute,
+    private fb: FormBuilder, private stateService: StateService, private countryService: CountryService,
+    // tslint:disable-next-line:no-shadowed-variable
+    private CityService: CityService, private companyService: CompanyService, private workService: WorkService,
+    private positionService: PositionService, private jobService: JobsService) {
+    this.jobForm  = this.fb.group({
+      locationCountryId: new FormControl(0, Validators.compose([
         Validators.min(1)
       ])),
-      locationStateId: new FormControl(0,Validators.compose([
+      locationStateId: new FormControl(0, Validators.compose([
         Validators.min(1)
       ])),
-      locationCityId: new FormControl(0,Validators.compose([
+      locationCityId: new FormControl(0, Validators.compose([
         Validators.min(1)
       ])),
-      companyId: new FormControl(0,Validators.compose([
+      companyId: new FormControl(0, Validators.compose([
         Validators.min(1)
       ])),
-      positionId: new FormControl(0,Validators.compose([
+      positionId: new FormControl(0, Validators.compose([
         Validators.min(1)
       ])),
-      workId: new FormControl(0,Validators.compose([
+      workId: new FormControl(0, Validators.compose([
         Validators.min(1)
       ])),
-      
-      jobCode: new FormControl('',Validators.compose([
+      jobCode: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(8)
       ])),
-      jobName: new FormControl('',Validators.compose([
+      jobName: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(100)
       ])),
-      jobTitle: new FormControl('',Validators.compose([
+      jobTitle: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(50)
       ])),
-      contactPerson: new FormControl('',Validators.compose([
+      contactPerson: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(10),
         Validators.maxLength(250)
       ])),
-      jobDesc: new FormControl('',Validators.compose([
+      jobDesc: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(20)
       ])),
-      postalCode: new FormControl('',Validators.compose([
+      postalCode: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(6),
         Validators.maxLength(6)
       ])),
-      workExp: new FormControl('',Validators.compose([
+      workExp: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(1),
         Validators.maxLength(2)
       ])),
-      workSkills: new FormControl('',Validators.compose([    
+      workSkills: new FormControl('', Validators.compose([
         Validators.minLength(10),
         Validators.maxLength(250)
       ])),
 
-      createdBy: new FormControl('',Validators.compose([
+      createdBy: new FormControl('', Validators.compose([
       ])),
-      createdDateTime: new FormControl('',Validators.compose([
+      createdDateTime: new FormControl('', Validators.compose([
       ])),
-      modifiedBy: new FormControl('',Validators.compose([
+      modifiedBy: new FormControl('', Validators.compose([
       ])),
-      modifiedDateTime: new FormControl('',Validators.compose([
+      modifiedDateTime: new FormControl('', Validators.compose([
       ])),
-      
-      isActive: new FormControl(),     
-    })
+      isActive: new FormControl(),
+    });
   }
 
-  loadCityLists(){
+  loadCityLists() {
     this.spinner.show();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.CityService.getAll().subscribe(
-        data=>{
-          this.cityList=data;
+        data => {
+          this.cityList = data;
           this.spinner.hide();
         },
-        err=>{
+        err => {
           console.log(err);
           this.spinner.hide();
         }
       );
-    },1000);
+    }, 1000);
   }
-  onCitySelect(val:any){
+  onCitySelect(val: any) {
     this.selectedCity = val;
   }
 
-  loadStateLists(){
+  loadStateLists() {
     this.spinner.show();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.stateService.getAll().subscribe(
-        data=>{
-          this.stateList=data;
+        data => {
+          this.stateList = data;
           this.spinner.hide();
         },
-        err=>{
+        err => {
           console.log(err);
           this.spinner.hide();
         }
       );
-    },1000);
+    }, 1000);
   }
-  onStateSelect(val:any){
+  onStateSelect(val: any) {
     this.selectedState = val;
   }
 
-  loadCountryLists(){
+  loadCountryLists() {
     this.spinner.show();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.countryService.getAll().subscribe(
-        data=>{
-          this.countryList=data;
+        data => {
+          this.countryList = data;
           this.spinner.hide();
         },
-        err=>{
+        err => {
           console.log(err);
           this.spinner.hide();
         }
       );
-    },1000);
+    }, 1000);
   }
-  onCountrySelect(val:any){
+  onCountrySelect(val: any) {
     this.selectedCountry = val;
   }
 
-  loadCompanyLists(){
+  loadCompanyLists() {
     this.spinner.show();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.companyService.getAll().subscribe(
-        data=>{
-          this.companyList=data;
+        data => {
+          this.companyList = data;
           this.spinner.hide();
         },
-        err=>{
+        err => {
           console.log(err);
           this.spinner.hide();
         }
       );
-    },1000);
+    }, 1000);
   }
-  onCompanySelect(val:any){
+  onCompanySelect(val: any) {
     this.selectedCompany = val;
   }
 
-  loadPositionLists(){
+  loadPositionLists() {
     this.spinner.show();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.positionService.getAll().subscribe(
-        data=>{
-          this.positionList=data;
+        data => {
+          this.positionList = data;
           this.spinner.hide();
         },
-        err=>{
+        err => {
           console.log(err);
           this.spinner.hide();
         }
       );
-    },1000);
+    }, 1000);
   }
-  onPositionSelect(val:any){
+  onPositionSelect(val: any) {
     this.selectedPosition = val;
   }
 
-  loadworkLists(){
+  loadworkLists() {
     this.spinner.show();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.workService.getAllWorks().subscribe(
-        data=>{
-          this.workList=data;
+        data => {
+          this.workList = data;
           this.spinner.hide();
         },
-        err=>{
+        err => {
           console.log(err);
           this.spinner.hide();
         }
       );
-    },1000);
+    }, 1000);
   }
-  onWorkSelect(val:any){
+  onWorkSelect(val: any) {
     this.selectedWork = val;
   }
 
-  loadById(id){
+  loadById(id) {
     this.spinner.show();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.jobService.getById(id).subscribe(
-        data=>{
-          this.jobEntity=data;
+        data => {
+          this.jobEntity = data;
           this.setValues();
           this.spinner.hide();
         },
-        err=>{
+        err => {
           console.log(err);
           this.spinner.hide();
         }
       );
-    },1000);
+    }, 1000);
   }
 
-  updateJob(){
+  updateJob() {
     this.spinner.show();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.jobEntity.JobCode = this.jobForm.value.jobCode;
       this.jobEntity.JobName = this.jobForm.value.jobName;
       this.jobEntity.JobTitle = this.jobForm.value.jobTitle;
@@ -260,84 +262,83 @@ export class JobsEditComponent implements OnInit {
       this.jobEntity.PostalCode = this.jobForm.value.postalCode;
       this.jobEntity.WorkExp = this.jobForm.value.workExp;
       this.jobEntity.WorkSkills = this.jobForm.value.workSkills;
-      
+
       this.jobEntity.LocationCountryId = this.selectedCountry;
       this.jobEntity.LocationStateId = this.selectedState;
       this.jobEntity.LocationCityId = this.selectedCity;
       this.jobEntity.CompanyId = this.selectedCompany;
       this.jobEntity.PositionId = this.selectedPosition;
       this.jobEntity.WorkId = this.selectedWork;
-      
-      this.currentDate = new Date();     
-      
-      this.jobEntity.ModifiedBy = this.jobForm.value.modifiedBy//this.currentDate.toDateString() +' '+ this.currentDate.toLocalTimeString();
+
+      this.currentDate = new Date();
+
+      this.jobEntity.ModifiedBy = this.jobForm.value.modifiedBy;
+      // this.currentDate.toDateString() +' '+ this.currentDate.toLocalTimeString();
       this.jobEntity.ModifiedDateTime = this.jobForm.value.modifiedDateTime;
       this.jobEntity.CreatedBy = this.jobForm.value.createdBy;
       this.jobEntity.CreatedDateTime = this.jobForm.value.createdDateTime;
       this.jobEntity.IsActive = this.jobForm.value.isActive;
-      
+
       this.jobService.updateRow(this.jobEntity).subscribe(
-        data=>{
+        data => {
           this.spinner.hide();
-          this.router.navigate(['home/jobs/list']); 
+          this.router.navigate(['home/jobs/list']);
         },
-        err=>{
+        err => {
           console.log(err);
           this.spinner.hide();
         }
       );
-    },1000);
+    }, 1000);
   }
 
-  delete(){
-    if(confirm('are you sure to delete?')){
+  delete() {
+    if (confirm('are you sure to delete?')) {
       this.spinner.show();
-      setTimeout(()=>{
+      setTimeout(() => {
         this.companyService.deleteById(this.jobEntity.JobId).subscribe(
-          data=>{
+          data => {
             this.spinner.hide();
-            this.router.navigate(['home/jobs/list']); 
-          },err=>{
+            this.router.navigate(['home/jobs/list']);
+          }, err => {
             this.spinner.hide();
           }
         );
-      },1000);
+      }, 1000);
     }
   }
-  
-  setValues(){
+
+  setValues() {
     this.jobForm.setValue({
-      jobCode:this.jobEntity.JobCode,
-      jobName:this.jobEntity.JobName,
-      jobTitle:this.jobEntity.JobTitle,
-      contactPerson:this.jobEntity.ContactPerson,
-      jobDesc:this.jobEntity.JobDesc,
-      postalCode:this.jobEntity.PostalCode,
-      workExp:this.jobEntity.WorkExp,
-      workSkills:this.jobEntity.WorkSkills,
+      jobCode: this.jobEntity.JobCode,
+      jobName: this.jobEntity.JobName,
+      jobTitle: this.jobEntity.JobTitle,
+      contactPerson: this.jobEntity.ContactPerson,
+      jobDesc: this.jobEntity.JobDesc,
+      postalCode: this.jobEntity.PostalCode,
+      workExp: this.jobEntity.WorkExp,
+      workSkills: this.jobEntity.WorkSkills,
 
-      locationCountryId:this.jobEntity.LocationCountryId,
-      locationStateId:this.jobEntity.LocationStateId,
-      locationCityId:this.jobEntity.LocationCityId,
-      companyId:this.jobEntity.CompanyId,
-      positionId:this.jobEntity.PositionId,
-      workId:this.jobEntity.WorkId,      
+      locationCountryId: this.jobEntity.LocationCountryId,
+      locationStateId: this.jobEntity.LocationStateId,
+      locationCityId: this.jobEntity.LocationCityId,
+      companyId: this.jobEntity.CompanyId,
+      positionId: this.jobEntity.PositionId,
+      workId: this.jobEntity.WorkId,
 
-      modifiedBy:this.jobEntity.ModifiedBy,
-      modifiedDateTime:this.jobEntity.ModifiedDateTime,
-      createdBy:this.jobEntity.CreatedBy,
-      createdDateTime:this.jobEntity.CreatedDateTime,
-      isActive:this.jobEntity.IsActive,
+      modifiedBy: this.jobEntity.ModifiedBy,
+      modifiedDateTime: this.jobEntity.ModifiedDateTime,
+      createdBy: this.jobEntity.CreatedBy,
+      createdDateTime: this.jobEntity.CreatedDateTime,
+      isActive: this.jobEntity.IsActive,
     });
   }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
-      let id = params['id'];      
-      
-      this.loadById(id);       
+      const id = params['id'];
+      this.loadById(id);
     });
-    
     this.loadPositionLists();
     this.loadCompanyLists();
     this.loadCountryLists();

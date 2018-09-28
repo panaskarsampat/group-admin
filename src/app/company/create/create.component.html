@@ -24,7 +24,7 @@
               <div class="form-group">
                   <label for="sel1">Select State</label>
                   <select id="sel1" class="form-control" formControlName='stateId' [(ngModel)]="companyForm.value.stateId" (ngModelChange)='onStateSelect($event)'>
-                    <option [value]="0">Select state</option>
+                    <option [value]="0">Select State</option>
                     <option *ngFor="let state of stateList" [value]="state.StateId">{{ state.StateName | uppercase}}</option>
                   </select>
                   <div style="font-size: 10px; color: red;" *ngIf="(companyForm.controls['stateId'].touched || companyForm.controls['stateId'].dirty) && !companyForm.controls['stateId'].valid">                                                                          
@@ -54,7 +54,7 @@
               <div class="form-group">
                   <label for="sel1">Select company category</label>
                   <select id="sel1" class="form-control" formControlName='companyCategoryId' [(ngModel)]="companyForm.value.companyCategoryId" (ngModelChange)='onCategorySelect($event)'>
-                    <option [value]="0">Select Country</option>
+                    <option [value]="0">Select Category</option>
                     <option *ngFor="let category of categoryList" [value]="category.CompanyCategoryId">{{ category.CompanyCategory | uppercase}}</option>
                   </select>
                   <div style="font-size: 10px; color: red;" *ngIf="(companyForm.controls['companyCategoryId'].touched || companyForm.controls['companyCategoryId'].dirty) && !companyForm.controls['companyCategoryId'].valid">                                                                          
@@ -68,9 +68,9 @@
       <div class="row">
           <div class="col-lg-6">
               <div class="form-group">
-                  <label for="sel1">Select City</label>
+                  <label for="sel1">Select Company Type</label>
                   <select id="sel1" class="form-control" formControlName='companyTypeId' [(ngModel)]="companyForm.value.companyTypeId" (ngModelChange)='onTypeSelect($event)'>
-                    <option [value]="0">Select City</option>
+                    <option [value]="0">Select Company Type</option>
                     <option *ngFor="let type of typeList" [value]="type.CompanyTypeId">{{ type.CompanyType | uppercase}}</option>
                   </select>
                   <div style="font-size: 10px; color: red;" *ngIf="(companyForm.controls['companyTypeId'].touched || companyForm.controls['companyTypeId'].dirty) && !companyForm.controls['companyTypeId'].valid">                                                                          
