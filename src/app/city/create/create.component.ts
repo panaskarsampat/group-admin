@@ -1,3 +1,5 @@
+import { CountryService } from './../../country/country.service';
+import { CountryModels } from './../../country/country-models';
 import { StateModels } from './../../state/state-models';
 import { StateService } from './../../state/state.service';
 import { CityService } from './../city.service';
@@ -14,73 +16,112 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class CityCreateComponent implements OnInit {
 
-  cityForm:FormGroup;
-  stateList:StateModels[];
-  selectedState:number;
+  cityForm: FormGroup;
+  stateList: StateModels[];
+  nonBindedStateList: StateModels[];
+  selectedState: number;
+  countryList: CountryModels[];
+  selectedCountry: number;
 
-  constructor(private cityEntity: CityModels, private router: Router, private cityDataService: CityService, private stateDataService:StateService, private fb: FormBuilder, private spinner: NgxSpinnerService) {
-    this.cityForm  = this.fb.group({      
-      stateid: new FormControl(0,Validators.compose(
-        [Validators.required,Validators.min(1)
+  constructor(private cityEntity: CityModels, private router: Router, private cityDataService: CityService,
+    private stateDataService: StateService, private fb: FormBuilder, private spinner: NgxSpinnerService,
+    private countryService: CountryService) {
+    this.cityForm  = this.fb.group({
+      countryid: new FormControl(0, Validators.compose(
+        [Validators.required, Validators.min(1)
         ] )),
-      citycode: new FormControl('',Validators.compose([
+      stateid: new FormControl(0, Validators.compose(
+        [Validators.required, Validators.min(1)
+        ] )),
+      citycode: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(3)
       ])),
-      cityname: new FormControl('',Validators.compose([
+      cityname: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(250)
       ])),
-      
-      chkActive:new FormControl(),
-     
-    })
+
+      chkActive: new FormControl(),
+    });
    }
 
-   saveState(){
+   saveState() {
     this.spinner.show();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.cityEntity.CityCode = this.cityForm.value.citycode;
       this.cityEntity.CityName = this.cityForm.value.cityname;
       this.cityEntity.Status = this.cityForm.value.chkActive;
       this.cityEntity.StateId = this.selectedState;
-      
+
       this.cityDataService.createRow(this.cityEntity).subscribe(
-        data=>{
+        data => {
           this.spinner.hide();
-          this.router.navigate(['home/city/list']); 
+          this.router.navigate(['home/city/list']);
         },
-        err=>{
+        err => {
           console.log(err);
           this.spinner.hide();
         }
       );
-    },1000);  
+    }, 1000);
   }
 
-  loadStateLists(){
+  loadStateLists() {
     this.spinner.show();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.stateDataService.getAll().subscribe(
-        data=>{
-          this.stateList=data;
+        data => {
+          this.nonBindedStateList = data;
           this.spinner.hide();
         },
-        err=>{
+        err => {
           console.log(err);
           this.spinner.hide();
         }
       );
-    },1000);
+    }, 1000);
   }
 
-  onStateSelect(val:any){
+  onStateSelect(val: any) {
     this.selectedState = val;
-   }
-   
+  }
+
+  loadCountryLists() {
+    this.spinner.show();
+    setTimeout(() => {
+      this.countryService.getAll().subscribe(
+        data => {
+          console.log(data);
+          this.countryList = data;
+          this.spinner.hide();
+        },
+        err => {
+          console.log(err);
+          this.spinner.hide();
+        }
+      );
+    }, 1000);
+  }
+
+  onCountrySelect(val: any) {
+    this.spinner.show();
+    setTimeout(() => {
+      this.stateList = this.nonBindedStateList.filter(
+        (item) => {
+          return item.CountryId === Number(val);
+        });
+      console.log(this.stateList);
+      this.selectedCountry = val;
+      this.cityForm.value.stateid = 0;
+      this.spinner.hide();
+    }, 2000);
+  }
+
   ngOnInit() {
+    this.loadCountryLists();
     this.loadStateLists();
   }
 

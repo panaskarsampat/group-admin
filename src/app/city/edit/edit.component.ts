@@ -14,119 +14,119 @@ import { StateModels } from '../../state/state-models';
 })
 export class CityEditComponent implements OnInit {
 
-  cityForm:FormGroup;
-  editCity:CityModels;
-  stateList:StateModels[];
-  selectedState:number;
+  cityForm: FormGroup;
+  editCity: CityModels;
+  stateList: StateModels[];
+  selectedState: number;
 
-  constructor(private router:Router, private cityDataService:CityService, private stateDataService: StateService, private fb:FormBuilder, private activatedRoute:ActivatedRoute, private spinner:NgxSpinnerService) { 
-    this.cityForm  = this.fb.group({      
-      stateid: new FormControl('0',Validators.compose(
+  constructor(private router: Router, private cityDataService: CityService, private stateDataService: StateService,
+    private fb: FormBuilder, private activatedRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
+    this.cityForm  = this.fb.group({
+      stateid: new FormControl('0', Validators.compose(
         [Validators.min(1)
         ] )),
-      citycode: new FormControl('',Validators.compose([
+      citycode: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(3)
       ])),
-      cityname: new FormControl('',Validators.compose([
+      cityname: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(250)
       ])),
-      
-      chkActive:new FormControl(),     
-    })
-  }
 
-  loadStateById(id){
-    this.spinner.show();
-    setTimeout(()=>{
-      this.cityDataService.getById(id).subscribe(
-        data=>{
-          this.editCity=data;
-          this.setValues();
-          this.spinner.hide();
-        },
-        err=>{
-          console.log(err);
-          this.spinner.hide();
-        }
-      );
-    },1000);
-  }
-
-  setValues(){
-    this.cityForm.setValue({
-      stateid:this.editCity.StateId,
-      citycode:this.editCity.CityCode,
-      cityname:this.editCity.CityName,
-      chkActive:this.editCity.Status
+      chkActive: new FormControl(),
     });
   }
 
-  loadStateLists(){
+  loadStateById(id) {
     this.spinner.show();
-    setTimeout(()=>{
-      this.stateDataService.getAll().subscribe(
-        data=>{
-          this.stateList=data;
+    setTimeout(() => {
+      this.cityDataService.getById(id).subscribe(
+        data => {
+          this.editCity = data;
+          this.setValues();
           this.spinner.hide();
         },
-        err=>{
+        err => {
           console.log(err);
           this.spinner.hide();
         }
       );
-    },1000);
+    }, 1000);
   }
 
-  onStateSelect(val:any){
+  setValues() {
+    this.cityForm.setValue({
+      stateid: this.editCity.StateId,
+      citycode: this.editCity.CityCode,
+      cityname: this.editCity.CityName,
+      chkActive: this.editCity.Status
+    });
+  }
+
+  loadStateLists() {
+    this.spinner.show();
+    setTimeout(() => {
+      this.stateDataService.getAll().subscribe(
+        data => {
+          this.stateList = data;
+          this.spinner.hide();
+        },
+        err => {
+          console.log(err);
+          this.spinner.hide();
+        }
+      );
+    }, 1000);
+  }
+
+  onStateSelect(val: any) {
     this.selectedState = val;
    }
 
 
-  updateCountry(){
+  updateCountry() {
     this.spinner.show();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.editCity.StateId = this.selectedState;
       this.editCity.CityCode = this.cityForm.value.citycode;
       this.editCity.CityName = this.cityForm.value.cityname;
       this.editCity.Status = this.cityForm.value.chkActive;
-      
       this.cityDataService.updateRow(this.editCity).subscribe(
-        data=>{
+        data => {
           this.spinner.hide();
-          this.router.navigate(['home/city/list']); 
+          this.router.navigate(['home/city/list']);
         },
-        err=>{
+        err => {
           console.log(err);
           this.spinner.hide();
         }
       );
-    },1000);
+    }, 1000);
   }
-  deleteCity(){
-    if(confirm('are you sure to delete?')){
+  deleteCity() {
+    if (confirm('are you sure to delete?')) {
       this.spinner.show();
-      setTimeout(()=>{
+      setTimeout(() => {
         this.cityDataService.deleteById(this.editCity.CityId).subscribe(
-          data=>{
+          data => {
             this.spinner.hide();
-            this.router.navigate(['home/city/list']); 
-          },err=>{
+            this.router.navigate(['home/city/list']);
+          }, err => {
             this.spinner.hide();
           }
         );
-      },1000);
+      }, 1000);
     }
   }
   ngOnInit() {
     this.loadStateLists();
     this.activatedRoute.params.subscribe((params: Params) => {
-      let id = params['id'];      
-      
-      this.loadStateById(id);       
+      const id = params['id'];
+
+      this.loadStateById(id);
     });
   }
 

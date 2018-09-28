@@ -7,6 +7,19 @@
   <div class="panel-body alert-info">
       
         <div class="col-lg-6">                            
+
+          <div class="form-group">
+            <label for="sel1">Select Country</label>
+            <select id="sel1" class="form-control" formControlName='countryid' [(ngModel)]="cityForm.value.countryid" (ngModelChange)='onCountrySelect($event)'>
+                <option [value]="0">Select Country</option>
+              <option *ngFor="let country of countryList" [value]="country.CountryId">{{ country.CountryName | uppercase}}</option>
+            </select>
+            <div style="font-size: 10px; color: red;" *ngIf="(cityForm.controls['countryid'].touched || cityForm.controls['countryid'].dirty) && !cityForm.controls['countryid'].valid">
+                <span *ngIf="cityForm.controls['countryid'].hasError('min') ">  
+                    please select country.  
+                </span>                                                                                                                       
+            </div>
+          </div>
           
           <div class="form-group">
               <label for="sel1">Select State</label>
