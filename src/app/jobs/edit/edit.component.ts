@@ -32,10 +32,15 @@ export class JobsEditComponent implements OnInit {
 
   countryList: CountryModels[];
   selectedCountry: number;
+
   stateList: StateModels[];
+  initialStateList: StateModels[];
   selectedState: number;
+
   cityList: CityModels[];
+  initialCityList: CityModels[];
   selectedCity: number;
+
   companyList: CompanyModels[];
   selectedCompany: number;
   positionList: PositionModels[];
@@ -120,12 +125,13 @@ export class JobsEditComponent implements OnInit {
     });
   }
 
+  // modified for cascad dropdown
   loadCityLists() {
     this.spinner.show();
     setTimeout(() => {
       this.CityService.getAll().subscribe(
         data => {
-          this.cityList = data;
+          this.initialCityList = data;
           this.spinner.hide();
         },
         err => {
@@ -139,12 +145,13 @@ export class JobsEditComponent implements OnInit {
     this.selectedCity = val;
   }
 
+  // modified for cascad dropdown
   loadStateLists() {
     this.spinner.show();
     setTimeout(() => {
       this.stateService.getAll().subscribe(
         data => {
-          this.stateList = data;
+          this.initialStateList = data;
           this.spinner.hide();
         },
         err => {
@@ -155,7 +162,13 @@ export class JobsEditComponent implements OnInit {
     }, 1000);
   }
   onStateSelect(val: any) {
-    this.selectedState = val;
+    this.spinner.show();
+    setTimeout(() => {
+      this.cityList = this.initialCityList.filter((x) => x.StateId === Number(val));
+      this.selectedState = val;
+      this.jobForm.value.locationCityId = 0;
+      this.spinner.hide();
+    }, 1000);
   }
 
   loadCountryLists() {
@@ -174,7 +187,15 @@ export class JobsEditComponent implements OnInit {
     }, 1000);
   }
   onCountrySelect(val: any) {
-    this.selectedCountry = val;
+    this.spinner.show();
+    setTimeout(() => {
+      this.stateList = this.initialStateList.filter(x => x.CountryId === Number(val));
+      this.selectedCountry = val;
+      this.jobForm.value.locationStateId = 0;
+      this.jobForm.value.locationCityId = 0;
+      this.cityList = null;
+      this.spinner.hide();
+    }, 1000);
   }
 
   loadCompanyLists() {
@@ -234,13 +255,43 @@ export class JobsEditComponent implements OnInit {
     this.selectedWork = val;
   }
 
+  getStateListByCountryId(val: any) {
+    this.spinner.show();
+    setTimeout(() => {
+          this.stateList = this.initialStateList.filter(x => x.CountryId === val);
+          this.spinner.hide();
+    }, 1000);
+  }
+  getCityByStateId(val: any) {
+    this.spinner.show();
+    setTimeout(() => {
+      this.cityList = this.initialCityList.filter(x => x.StateId === val);
+      this.spinner.hide();
+    }, 1000);
+  }
+
   loadById(id) {
     this.spinner.show();
     setTimeout(() => {
       this.jobService.getById(id).subscribe(
         data => {
           this.jobEntity = data;
-          this.setValues();
+          setTimeout(() => {
+            this.getStateListByCountryId(this.jobEntity.LocationCountryId);
+          }, 1000);
+
+          setTimeout(() => {
+            this.getCityByStateId(this.jobEntity.LocationStateId);
+          }, 1000);
+
+          this.selectedCountry = this.jobEntity.LocationCountryId;
+          this.selectedState = this.jobEntity.LocationStateId;
+          this.selectedCity = this.jobEntity.LocationCityId;
+
+          setTimeout(() => {
+            this.setValues();
+          }, 1000);
+
           this.spinner.hide();
         },
         err => {
@@ -273,7 +324,6 @@ export class JobsEditComponent implements OnInit {
       this.currentDate = new Date();
 
       this.jobEntity.ModifiedBy = this.jobForm.value.modifiedBy;
-      // this.currentDate.toDateString() +' '+ this.currentDate.toLocalTimeString();
       this.jobEntity.ModifiedDateTime = this.jobForm.value.modifiedDateTime;
       this.jobEntity.CreatedBy = this.jobForm.value.createdBy;
       this.jobEntity.CreatedDateTime = this.jobForm.value.createdDateTime;
@@ -335,16 +385,16 @@ export class JobsEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe((params: Params) => {
-      const id = params['id'];
-      this.loadById(id);
-    });
     this.loadPositionLists();
     this.loadCompanyLists();
     this.loadCountryLists();
     this.loadStateLists();
     this.loadCityLists();
     this.loadworkLists();
-  }
 
+    this.activatedRoute.params.subscribe((params: Params) => {
+      const id = params['id'];
+      this.loadById(id);
+    });
+  }
 }
