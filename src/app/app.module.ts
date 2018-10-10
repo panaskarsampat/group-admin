@@ -11,7 +11,7 @@ import { CityModels } from './city/city-models';
 import { StateModels } from './state/state-models';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router'
+import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
@@ -43,12 +43,12 @@ import { DashboardComponent } from './home/dashboard/dashboard.component';
 import { UserEditComponent } from './user/edit/edit.component';
 import { UserCreateComponent } from './user/create/create.component';
 import { UserListComponent } from './user/user-list/user-list.component';
-//country 
+// country 
 import { CountryComponent } from './country/country.component';
 import { CountryListComponent } from './country/list/list.component';
 import { CountryEditComponent } from './country/edit/edit.component';
 import { CountryCreateComponent } from './country/create/create.component';
-//satet
+// satet
 import { StateComponent } from './state/state.component';
 import { StateListComponent } from './state/list/list.component';
 import { StateCreateComponent } from './state/create/create.component';
@@ -104,12 +104,12 @@ import { WorkModels } from './work/work-models';
     ChildComponentsComponent,
     DashboardComponent,
     UserEditComponent, UserCreateComponent, UserListComponent,
-    CountryComponent, CountryListComponent, CountryEditComponent, CountryCreateComponent,     
+    CountryComponent, CountryListComponent, CountryEditComponent, CountryCreateComponent,
     StateComponent, StateListComponent, StateEditComponent, StateCreateComponent,
     CityComponent, CityCreateComponent, CityEditComponent, CityListComponent,
     CategoryComponent, CategoryCreateComponent, CategoryEditComponent, CategoryListComponent,
-    CompanyComponent, CompanyCreateComponent, CompanyEditComponent, CompanyListComponent, 
-    JobsComponent, JobsCreateComponent, JobsEditComponent, JobsListComponent, 
+    CompanyComponent, CompanyCreateComponent, CompanyEditComponent, CompanyListComponent,
+    JobsComponent, JobsCreateComponent, JobsEditComponent, JobsListComponent,
     TypeComponent, TypeCreateComponent, TypeEditComponent, TypeListComponent,
     PositionComponent, PositionCreateComponent, PositionEditComponent, PositionListComponent,
     WorkComponent, WorkCreateComponent, WorkEditComponent, WorkListComponent,
@@ -124,9 +124,9 @@ import { WorkModels } from './work/work-models';
     NgxSpinnerModule,
     RouterModule.forRoot(appRoutes)
   ],
-  exports:[],
+  exports: [],
   providers: [
-    UserDataService, UserService, LoginService, 
+    UserDataService, UserService, LoginService,
     UserModels, CountryModels, StateModels, CityModels, Category, Type, CompanyModels, JobsModels, PositionModels, WorkModels
   ],
   bootstrap: [AppComponent]

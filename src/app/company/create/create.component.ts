@@ -140,7 +140,7 @@ export class CompanyCreateComponent implements OnInit {
       this.selectedCountry = val;
       this.companyForm.value.stateId = 0;
       this.spinner.hide();
-    }, 2000);
+    }, 1000);
   }
   onStateSelect(val: any) {
     this.spinner.show();
@@ -152,7 +152,7 @@ export class CompanyCreateComponent implements OnInit {
       this.selectedState = val;
       this.companyForm.value.cityId = 0;
       this.spinner.hide();
-    }, 2000);
+    }, 1000);
   }
   onCitySelect(val: any) {
     this.selectedCity = val;

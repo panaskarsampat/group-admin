@@ -1,3 +1,4 @@
+import { AppPage } from './../../../../e2e/src/app.po';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
@@ -33,15 +34,20 @@ export class CompanyEditComponent implements OnInit {
   selectedCategory: number;
 
   countryList: CountryModels[];
+  // initialCountryList: CountryModels[];
   selectedCountry: number;
 
   stateList: StateModels[];
+  initialStateList: StateModels[];
   selectedState: number;
 
   cityList: CityModels[];
+  initialCityList: CityModels[];
   selectedCity: number;
 
-  constructor(private router: Router, private spinner: NgxSpinnerService, private activatedRoute: ActivatedRoute, private fb: FormBuilder,
+  constructor(private initialcompany: CompanyModels, private router: Router, private spinner: NgxSpinnerService
+    , private activatedRoute: ActivatedRoute, private fb: FormBuilder,
+    // tslint:disable-next-line:no-shadowed-variable
     private stateService: StateService, private countryService: CountryService, private CityService: CityService,
     private categoryService: CategoryService, private typeService: TypeService, private companyService: CompanyService) {
     this.companyForm  = this.fb.group({
@@ -110,17 +116,17 @@ export class CompanyEditComponent implements OnInit {
         Validators.maxLength(250)
       ])),
 
-      modifiedBy: new FormControl('',Validators.compose([
+      modifiedBy: new FormControl('', Validators.compose([
       ])),
-      modifiedDateTime: new FormControl('',Validators.compose([
+      modifiedDateTime: new FormControl('', Validators.compose([
       ])),
-      createdBy: new FormControl('',Validators.compose([
+      createdBy: new FormControl('', Validators.compose([
       ])),
-      createdDateTime: new FormControl('',Validators.compose([
+      createdDateTime: new FormControl('', Validators.compose([
       ])),
-      
-      isActive:new FormControl(),     
-    })
+
+      isActive: new FormControl(),
+    });
   }
 
   loadTypeLists() {
@@ -168,12 +174,14 @@ export class CompanyEditComponent implements OnInit {
       );
     }, 1000);
   }
+
+  // City and State change for cascad
   loadStateLists() {
     this.spinner.show();
     setTimeout(() => {
       this.stateService.getAll().subscribe(
         data => {
-          this.stateList = data;
+          this.initialStateList = data;
           this.spinner.hide();
         },
         err => {
@@ -188,7 +196,7 @@ export class CompanyEditComponent implements OnInit {
     setTimeout(() => {
       this.CityService.getAll().subscribe(
         data => {
-          this.cityList = data;
+          this.initialCityList = data;
           this.spinner.hide();
         },
         err => {
@@ -199,13 +207,42 @@ export class CompanyEditComponent implements OnInit {
     }, 1000);
   }
 
+  getStateListByCountryId(val: any) {
+    this.spinner.show();
+    setTimeout(() => {
+          this.stateList = this.initialStateList.filter(x => x.CountryId === val);
+          this.spinner.hide();
+    }, 1000);
+  }
+  getCityByStateId(val: any) {
+    this.spinner.show();
+    setTimeout(() => {
+      this.cityList = this.initialCityList.filter(x => x.StateId === val);
+      this.spinner.hide();
+    }, 1000);
+  }
+
   loadById(id) {
     this.spinner.show();
     setTimeout(() => {
       this.companyService.getById(id).subscribe(
         data => {
           this.companyEntity = data;
-          this.setValues();
+          setTimeout(() => {
+            this.getStateListByCountryId(this.companyEntity.CountryId);
+          }, 1000);
+
+          setTimeout(() => {
+            this.getCityByStateId(this.companyEntity.StateId);
+          }, 1000);
+
+          this.selectedCountry = this.companyEntity.CountryId;
+          this.selectedState = this.companyEntity.StateId;
+          this.selectedCity = this.companyEntity.CityId;
+
+          setTimeout(() => {
+            this.setValues();
+          }, 1000);
           this.spinner.hide();
         },
         err => {
@@ -298,26 +335,41 @@ export class CompanyEditComponent implements OnInit {
     this.selectedCategory = val;
   }
   onCountrySelect(val: any) {
-    this.selectedCountry = val;
+    this.spinner.show();
+    setTimeout(() => {
+      this.stateList = this.initialStateList.filter(x => x.CountryId === Number(val));
+      this.selectedCountry = val;
+      this.companyForm.value.stateId = 0;
+      this.companyForm.value.cityId = 0;
+      this.cityList = null;
+      this.spinner.hide();
+    }, 1000);
   }
   onStateSelect(val: any) {
-    this.selectedState = val;
+    this.spinner.show();
+    setTimeout(() => {
+      this.cityList = this.initialCityList.filter((x) => x.StateId === Number(val));
+      this.selectedState = val;
+      this.companyForm.value.cityId = 0;
+      this.spinner.hide();
+    }, 1000);
   }
   onCitySelect(val: any) {
     this.selectedCity = val;
   }
 
   ngOnInit() {
-
-    this.activatedRoute.params.subscribe((params: Params) => {
-      const id = params['id'];
-      this.loadById(id);
-    });
     this.loadTypeLists();
     this.loadCategoryLists();
     this.loadCountryLists();
     this.loadStateLists();
     this.loadCityLists();
-  }
 
+    this.activatedRoute.params.subscribe((params: Params) => {
+      const id = params['id'];
+      this.loadById(id);
+    });
+
+
+  }
 }

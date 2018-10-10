@@ -47,6 +47,8 @@ export class CompanyService {
       map(x => x.json()));
   }
   updateRow(companyEntity: CompanyModels) {
+    // tslint:disable-next-line:no-debugger
+    debugger;
     this._requestOption = new RequestOptions({method: RequestMethod.Put, headers: this._headers});
     const id = companyEntity.CountryId;
     return this._http.put(this.companyUrl + id, JSON.stringify(companyEntity), this._requestOption).pipe(

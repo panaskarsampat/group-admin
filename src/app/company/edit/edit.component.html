@@ -8,7 +8,7 @@
       <div class="col-lg-6">
           <div class="form-group">
               <label for="sel1">Select Country:</label>
-              <select id="sel1" class="form-control" formControlName='countryId' [(ngModel)]="companyForm.value.countryId" (ngModelChange)='onCountrySelect($event)'>
+              <select id="sel1" class="form-control" formControlName='countryId' [(ngModel)]="companyForm.value.countryId" (change)='onCountrySelect($event.target.value)'>
                 <option [value]="0">Select Country</option>
                 <option *ngFor="let country of countryList" [value]="country.CountryId">{{ country.CountryName | uppercase}}</option>
               </select>
@@ -22,7 +22,7 @@
       <div class="col-lg-6">
           <div class="form-group">
               <label for="sel1">Select State:</label>
-              <select id="sel1" class="form-control" formControlName='stateId' [(ngModel)]="companyForm.value.stateId" (ngModelChange)='onStateSelect($event)'>
+              <select id="sel1" class="form-control" formControlName='stateId' [(ngModel)]="companyForm.value.stateId" (change)='onStateSelect($event.target.value)'>
                 <option [value]="0">Select state</option>
                 <option *ngFor="let state of stateList" [value]="state.StateId">{{ state.StateName | uppercase}}</option>
               </select>
@@ -38,7 +38,7 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <label for="sel1">Select City:</label>
-                <select id="sel1" class="form-control" formControlName='cityId' [(ngModel)]="companyForm.value.cityId" (ngModelChange)='onCitySelect($event)'>
+                <select id="sel1" class="form-control" formControlName='cityId' [(ngModel)]="companyForm.value.cityId" (change)='onCitySelect($event.target.value)'>
                   <option [value]="0">Select City</option>
                   <option *ngFor="let city of cityList" [value]="city.CityId">{{ city.CityName | uppercase}}</option>
                 </select>

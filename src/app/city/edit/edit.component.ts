@@ -1,3 +1,5 @@
+import { CountryModels } from './../../country/country-models';
+import { CountryService } from './../../country/country.service';
 import { CityService } from './../city.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { CityModels } from './../city-models';
@@ -16,12 +18,19 @@ export class CityEditComponent implements OnInit {
 
   cityForm: FormGroup;
   editCity: CityModels;
+  countryList: CountryModels[];
+  initialStateList: StateModels[];
   stateList: StateModels[];
   selectedState: number;
+  selectedCountry: number;
 
   constructor(private router: Router, private cityDataService: CityService, private stateDataService: StateService,
-    private fb: FormBuilder, private activatedRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
+    private fb: FormBuilder, private activatedRoute: ActivatedRoute, private spinner: NgxSpinnerService,
+    private countryService: CountryService) {
     this.cityForm  = this.fb.group({
+      countryid: new FormControl('0', Validators.compose(
+        [Validators.min(1)
+        ] )),
       stateid: new FormControl('0', Validators.compose(
         [Validators.min(1)
         ] )),
@@ -46,7 +55,19 @@ export class CityEditComponent implements OnInit {
       this.cityDataService.getById(id).subscribe(
         data => {
           this.editCity = data;
-          this.setValues();
+
+          setTimeout(() => {
+            this.selectedCountry = this.getCountryId(this.editCity.StateId);
+          }, 1000);
+
+          setTimeout(() => {
+            this.getStateListByCountryId(this.selectedCountry);
+          }, 1000);
+          this.selectedState = this.editCity.StateId;
+          setTimeout(() => {
+            this.setValues(this.selectedCountry);
+          }, 1000);
+          this.spinner.hide();
           this.spinner.hide();
         },
         err => {
@@ -57,8 +78,9 @@ export class CityEditComponent implements OnInit {
     }, 1000);
   }
 
-  setValues() {
+  setValues(val: any) {
     this.cityForm.setValue({
+      countryid: val,
       stateid: this.editCity.StateId,
       citycode: this.editCity.CityCode,
       cityname: this.editCity.CityName,
@@ -66,12 +88,45 @@ export class CityEditComponent implements OnInit {
     });
   }
 
+  // initial
+  getCountryId(val: any) {
+    // tslint:disable-next-line:triple-equals
+    return this.initialStateList.find(x => x.StateId == val).CountryId;
+  }
+
+  // initial
+  getStateListByCountryId(val: any) {
+    this.spinner.show();
+    setTimeout(() => {
+          // tslint:disable-next-line:triple-equals
+          this.stateList = this.initialStateList.filter(x => x.CountryId == val);
+          this.spinner.hide();
+    }, 1000);
+  }
+
+  // added for cascad dropdown
+  loadCountryLists() {
+    this.spinner.show();
+    setTimeout(() => {
+      this.countryService.getAll().subscribe(
+        data => {
+          this.countryList = data;
+          this.spinner.hide();
+        },
+        err => {
+          console.log(err);
+          this.spinner.hide();
+        }
+      );
+    }, 1000);
+  }
+
   loadStateLists() {
     this.spinner.show();
     setTimeout(() => {
       this.stateDataService.getAll().subscribe(
         data => {
-          this.stateList = data;
+          this.initialStateList = data;
           this.spinner.hide();
         },
         err => {
@@ -84,7 +139,17 @@ export class CityEditComponent implements OnInit {
 
   onStateSelect(val: any) {
     this.selectedState = val;
-   }
+  }
+
+  onCountrySelect(val: any) {
+    this.spinner.show();
+    setTimeout(() => {
+      this.stateList = this.initialStateList.filter(x => x.CountryId === Number(val));
+      this.selectedCountry = val;
+      this.cityForm.value.stateId = 0;
+      this.spinner.hide();
+    }, 1000);
+  }
 
 
   updateCountry() {
@@ -106,6 +171,7 @@ export class CityEditComponent implements OnInit {
       );
     }, 1000);
   }
+
   deleteCity() {
     if (confirm('are you sure to delete?')) {
       this.spinner.show();
@@ -121,7 +187,9 @@ export class CityEditComponent implements OnInit {
       }, 1000);
     }
   }
+
   ngOnInit() {
+    this.loadCountryLists();
     this.loadStateLists();
     this.activatedRoute.params.subscribe((params: Params) => {
       const id = params['id'];
